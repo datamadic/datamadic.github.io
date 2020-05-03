@@ -1,2 +1,0 @@
-User-agent: *
-Sitemap: http://datamadic.github.io/sitemap.xml
