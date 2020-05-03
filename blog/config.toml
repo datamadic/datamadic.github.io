@@ -1,4 +1,4 @@
-baseURL = "https://datamadic.github.io/blog/public/index.html"
+baseURL = "https://datamadic.github.io/"
 languageCode = "en-us"
 title = "Where's the Any key?"
 theme = "tale"
