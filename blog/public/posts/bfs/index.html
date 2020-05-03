@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+		<title>(((((((((( BFS )))))))))) &middot; Where&#39;s the Any key?</title>
+
+		
+  		<link rel="stylesheet" href="/css/style.css">
+		<link rel="stylesheet" href="/css/fonts.css">
+		
+		<link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+		<link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+		<link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+
+		
+		<link href="" rel="alternate" type="application/rss+xml" title="Where&#39;s the Any key?" />
+	</head>
+
+    <body>
+        		<nav class="nav">
+			<div class="nav-container">
+				<a href="/">
+					<h2 class="nav-title">Where&#39;s the Any key?</h2>
+				</a>
+				<ul>
+    
+    
+</ul>
+			</div>
+		</nav>
+
+        
+
+<main>
+	<div class="post">
+		<div class="post-info">
+    <span>Written by</span>
+        me, of course
+        <br>
+        <span>on&nbsp;</span><time datetime="2020-05-03 00:00:00 &#43;0000 UTC">May 3, 2020</time>
+</div>
+		<h1 class="post-title">(((((((((( BFS ))))))))))</h1>
+<div class="post-line"></div>
+
+		
+
+		<p>Given a graph G = (V, E) and a distinguished vertex s, BFS explores the edges of
+G to discover every vertex that is reachable from s.</p>
+<p>It computes the distance (smallest number of edges) from s to each reachable
+vertex.</p>
+<p>It produces an breadth-first tree with root s that contains all reachable
+vertices. For any vertex v reachable from s, the path in the breadth-first
+tree from v to s corresponds to a shortest path from v to s in G.</p>
+<p>BFS expands the frontier between discovered and undiscovered vertices
+uniformly across the breadth of the frontier, it discovers all vertices at a
+distance k from s before it discovers any vertices k+1 from s.</p>
+<p>BFS is O(V + E).</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-clj" data-lang="clj">
+(<span style="color:#66d9ef">defn </span>BFS [G s]
+  <span style="color:#e6db74">&#34;color, distance, parent, queue, vertex (u), adjacent vertices (av)&#34;</span>
+  (<span style="color:#66d9ef">let </span>[[c d p q] [(merge (into {} (map (<span style="color:#66d9ef">fn </span>[[k]] [k <span style="color:#e6db74">&#34;white&#34;</span>]) G)) {s <span style="color:#e6db74">&#34;gray&#34;</span>}) {s <span style="color:#ae81ff">0</span>} {s nil} [s]]]
+    (<span style="color:#66d9ef">loop </span>[[c d p q][c d p q]]
+      (<span style="color:#66d9ef">if </span>(<span style="color:#a6e22e">empty?</span> q) [c d p q]
+          (<span style="color:#66d9ef">let </span>[u (first q)
+                q (<span style="color:#a6e22e">vec</span> (rest q))]
+            (<span style="color:#a6e22e">recur</span> (<span style="color:#66d9ef">loop </span>[av (<span style="color:#a6e22e">u</span> G) c c d d p p q q]
+                      (<span style="color:#66d9ef">let </span>[v (first av)]
+                        (<span style="color:#66d9ef">if </span>(nil? v) [(assoc c u <span style="color:#e6db74">&#34;black&#34;</span>) d p q]
+                            (<span style="color:#66d9ef">if </span>(= (<span style="color:#a6e22e">v</span> c) <span style="color:#e6db74">&#34;white&#34;</span>) (<span style="color:#a6e22e">recur</span> (rest av)
+                                                         (assoc c v <span style="color:#e6db74">&#34;gray&#34;</span>)
+                                                         (assoc d v (inc (<span style="color:#a6e22e">u</span> d)))
+                                                         (assoc p v u)
+                                                         (conj q v))
+                                (<span style="color:#a6e22e">recur</span> (rest av) c d p q)))))))))))
+
+
+
+
+(<span style="color:#66d9ef">def </span>g {<span style="color:#e6db74">:a</span> [<span style="color:#e6db74">:b</span> <span style="color:#e6db74">:f</span>]
+        <span style="color:#e6db74">:b</span> [<span style="color:#e6db74">:c</span>]
+        <span style="color:#e6db74">:c</span> [<span style="color:#e6db74">:d</span> <span style="color:#e6db74">:e</span>]
+        <span style="color:#e6db74">:d</span> []
+        <span style="color:#e6db74">:e</span> [<span style="color:#e6db74">:g</span>]
+        <span style="color:#e6db74">:f</span> [<span style="color:#e6db74">:g</span> <span style="color:#e6db74">:e</span> <span style="color:#e6db74">:a</span>]
+        <span style="color:#e6db74">:g</span> []})
+
+
+(<span style="color:#a6e22e">BFS</span> g <span style="color:#e6db74">:a</span>)
+
+<span style="color:#75715e">;; returns</span>
+[{<span style="color:#e6db74">:a</span> <span style="color:#e6db74">&#34;black&#34;</span>,
+  <span style="color:#e6db74">:b</span> <span style="color:#e6db74">&#34;black&#34;</span>,
+  <span style="color:#e6db74">:c</span> <span style="color:#e6db74">&#34;black&#34;</span>,
+  <span style="color:#e6db74">:d</span> <span style="color:#e6db74">&#34;black&#34;</span>,
+  <span style="color:#e6db74">:e</span> <span style="color:#e6db74">&#34;black&#34;</span>,
+  <span style="color:#e6db74">:f</span> <span style="color:#e6db74">&#34;black&#34;</span>,
+  <span style="color:#e6db74">:g</span> <span style="color:#e6db74">&#34;black&#34;</span>}
+ {<span style="color:#e6db74">:a</span> <span style="color:#ae81ff">0</span>, <span style="color:#e6db74">:b</span> <span style="color:#ae81ff">1</span>, <span style="color:#e6db74">:f</span> <span style="color:#ae81ff">1</span>, <span style="color:#e6db74">:c</span> <span style="color:#ae81ff">2</span>, <span style="color:#e6db74">:g</span> <span style="color:#ae81ff">2</span>, <span style="color:#e6db74">:e</span> <span style="color:#ae81ff">2</span>, <span style="color:#e6db74">:d</span> <span style="color:#ae81ff">3</span>}
+ {<span style="color:#e6db74">:a</span> nil, <span style="color:#e6db74">:b</span> <span style="color:#e6db74">:a</span>, <span style="color:#e6db74">:f</span> <span style="color:#e6db74">:a</span>, <span style="color:#e6db74">:c</span> <span style="color:#e6db74">:b</span>, <span style="color:#e6db74">:g</span> <span style="color:#e6db74">:f</span>, <span style="color:#e6db74">:e</span> <span style="color:#e6db74">:f</span>, <span style="color:#e6db74">:d</span> <span style="color:#e6db74">:c</span>}
+ []]
+
+
+</code></pre></div>
+
+		
+	</div>
+
+	<div class="pagination">
+
+		<a href="#" class="top">Top</a>
+	</div>
+</main>
+
+
+        		<footer>
+			<span>
+			&copy; <time datetime="2020-05-03 15:11:35.622741 -0400 EDT m=&#43;0.115912872">2020</time> . Made with <a href='https://gohugo.io'>Hugo</a> using the <a href='https://github.com/EmielH/tale-hugo/'>Tale</a> theme.
+			</span>
+		</footer>
+
+    </body>
+</html>

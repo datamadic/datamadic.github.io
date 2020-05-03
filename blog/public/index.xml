@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Where&#39;s the Any key?</title>
+    <link>http://example.org/</link>
+    <description>Recent content on Where&#39;s the Any key?</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 03 May 2020 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="http://example.org/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>(((((((((( BFS ))))))))))</title>
+      <link>http://example.org/posts/bfs/</link>
+      <pubDate>Sun, 03 May 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://example.org/posts/bfs/</guid>
+      <description>Given a graph G = (V, E) and a distinguished vertex s, BFS explores the edges of G to discover every vertex that is reachable from s.
+It computes the distance (smallest number of edges) from s to each reachable vertex.
+It produces an breadth-first tree with root s that contains all reachable vertices. For any vertex v reachable from s, the path in the breadth-first tree from v to s corresponds to a shortest path from v to s in G.</description>
+    </item>
+    
+  </channel>
+</rss>
