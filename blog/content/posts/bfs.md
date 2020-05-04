@@ -24,24 +24,26 @@ BFS is O(V + E).
 
 ```clj
 
+(defn waj [G]
+  "whiten adjacency list, (Graph)"
+  (into {} (map (fn [[k]] [k "white"]) G)))
+
 (defn BFS [G s]
   "color, distance, parent, queue, vertex (u), adjacent vertices (av)"
-  (let [[c d p q] [(merge (into {} (map (fn [[k]] [k "white"]) G)) {s "gray"}) {s 0} {s nil} [s]]]
-    (loop [[c d p q][c d p q]]
-      (if (empty? q) [c d p q]
-          (let [u (first q)
-                q (vec (rest q))]
-            (recur (loop [av (u G) c c d d p p q q]
-                      (let [v (first av)]
-                        (if (nil? v) [(assoc c u "black") d p q]
-                            (if (= (v c) "white") (recur (rest av)
-                                                         (assoc c v "gray")
-                                                         (assoc d v (inc (u d)))
-                                                         (assoc p v u)
-                                                         (conj q v))
-                                (recur (rest av) c d p q)))))))))))
-
-
+  (loop [[c d p q] [(assoc (waj G) s "gray") {s 0} {s nil} [s]]]
+    (if (empty? q) [c d p q]
+        (let [u (first q)
+              q (vec (rest q))]
+          (recur
+           (loop [av (u G) c c d d p p q q]
+             (let [v (first av)]
+               (if (nil? v) [(assoc c u "black") d p q]
+                   (if (= (v c) "white") (recur (rest av)
+                                                (assoc c v "gray")
+                                                (assoc d v (inc (u d)))
+                                                (assoc p v u)
+                                                (conj q v))
+                       (recur (rest av) c d p q))))))))))
 
 
 (def g {:a [:b :f]

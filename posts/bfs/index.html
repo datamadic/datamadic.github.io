@@ -58,24 +58,26 @@ uniformly across the breadth of the frontier, it discovers all vertices at a
 distance k from s before it discovers any vertices k+1 from s.</p>
 <p>BFS is O(V + E).</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-clj" data-lang="clj">
+(<span style="color:#66d9ef">defn </span>waj [G]
+  <span style="color:#e6db74">&#34;whiten adjacency list, (Graph)&#34;</span>
+  (into {} (map (<span style="color:#66d9ef">fn </span>[[k]] [k <span style="color:#e6db74">&#34;white&#34;</span>]) G)))
+
 (<span style="color:#66d9ef">defn </span>BFS [G s]
   <span style="color:#e6db74">&#34;color, distance, parent, queue, vertex (u), adjacent vertices (av)&#34;</span>
-  (<span style="color:#66d9ef">let </span>[[c d p q] [(merge (into {} (map (<span style="color:#66d9ef">fn </span>[[k]] [k <span style="color:#e6db74">&#34;white&#34;</span>]) G)) {s <span style="color:#e6db74">&#34;gray&#34;</span>}) {s <span style="color:#ae81ff">0</span>} {s nil} [s]]]
-    (<span style="color:#66d9ef">loop </span>[[c d p q][c d p q]]
-      (<span style="color:#66d9ef">if </span>(<span style="color:#a6e22e">empty?</span> q) [c d p q]
-          (<span style="color:#66d9ef">let </span>[u (first q)
-                q (<span style="color:#a6e22e">vec</span> (rest q))]
-            (<span style="color:#a6e22e">recur</span> (<span style="color:#66d9ef">loop </span>[av (<span style="color:#a6e22e">u</span> G) c c d d p p q q]
-                      (<span style="color:#66d9ef">let </span>[v (first av)]
-                        (<span style="color:#66d9ef">if </span>(nil? v) [(assoc c u <span style="color:#e6db74">&#34;black&#34;</span>) d p q]
-                            (<span style="color:#66d9ef">if </span>(= (<span style="color:#a6e22e">v</span> c) <span style="color:#e6db74">&#34;white&#34;</span>) (<span style="color:#a6e22e">recur</span> (rest av)
-                                                         (assoc c v <span style="color:#e6db74">&#34;gray&#34;</span>)
-                                                         (assoc d v (inc (<span style="color:#a6e22e">u</span> d)))
-                                                         (assoc p v u)
-                                                         (conj q v))
-                                (<span style="color:#a6e22e">recur</span> (rest av) c d p q)))))))))))
-
-
+  (<span style="color:#66d9ef">loop </span>[[c d p q] [(assoc (<span style="color:#a6e22e">waj</span> G) s <span style="color:#e6db74">&#34;gray&#34;</span>) {s <span style="color:#ae81ff">0</span>} {s nil} [s]]]
+    (<span style="color:#66d9ef">if </span>(<span style="color:#a6e22e">empty?</span> q) [c d p q]
+        (<span style="color:#66d9ef">let </span>[u (first q)
+              q (<span style="color:#a6e22e">vec</span> (rest q))]
+          (<span style="color:#a6e22e">recur</span>
+           (<span style="color:#66d9ef">loop </span>[av (<span style="color:#a6e22e">u</span> G) c c d d p p q q]
+             (<span style="color:#66d9ef">let </span>[v (first av)]
+               (<span style="color:#66d9ef">if </span>(nil? v) [(assoc c u <span style="color:#e6db74">&#34;black&#34;</span>) d p q]
+                   (<span style="color:#66d9ef">if </span>(= (<span style="color:#a6e22e">v</span> c) <span style="color:#e6db74">&#34;white&#34;</span>) (<span style="color:#a6e22e">recur</span> (rest av)
+                                                (assoc c v <span style="color:#e6db74">&#34;gray&#34;</span>)
+                                                (assoc d v (inc (<span style="color:#a6e22e">u</span> d)))
+                                                (assoc p v u)
+                                                (conj q v))
+                       (<span style="color:#a6e22e">recur</span> (rest av) c d p q))))))))))
 
 
 (<span style="color:#66d9ef">def </span>g {<span style="color:#e6db74">:a</span> [<span style="color:#e6db74">:b</span> <span style="color:#e6db74">:f</span>]
@@ -116,7 +118,7 @@ distance k from s before it discovers any vertices k+1 from s.</p>
 
         		<footer>
 			<span>
-			&copy; <time datetime="2020-05-03 15:25:12.76656 -0400 EDT m=&#43;0.099903193">2020</time> . Made with <a href='https://gohugo.io'>Hugo</a> using the <a href='https://github.com/EmielH/tale-hugo/'>Tale</a> theme.
+			&copy; <time datetime="2020-05-03 21:41:15.261962 -0400 EDT m=&#43;0.204073063">2020</time> . Made with <a href='https://gohugo.io'>Hugo</a> using the <a href='https://github.com/EmielH/tale-hugo/'>Tale</a> theme.
 			</span>
 		</footer>
 
