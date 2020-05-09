@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+		  <title>( DFS ) &middot; Where&#39;s the Any key?</title>
+
+		  
+  		<link rel="stylesheet" href="/css/style.css">
+		  <link rel="stylesheet" href="/css/fonts.css">
+		  
+		  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+		  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+		  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+
+		  
+		  <link href="" rel="alternate" type="application/rss+xml" title="Where&#39;s the Any key?" />
+     
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.css" integrity="sha384-BdGj8xC2eZkQaxoQ8nSLefg4AV4/AwB3Fj+8SUSo7pnKP6Eoy18liIKTPn9oBYNG" crossorigin="anonymous">
+      <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.js" integrity="sha384-JiKN5O8x9Hhs/UE5cT5AAJqieYlOZbGT3CHws/y97o3ty4R7/O5poG9F3JoiOYw1" crossorigin="anonymous"></script>
+      <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous"
+              onload="renderMathInElement(document.body);"></script>
+
+	</head>
+
+    <body>
+        		<nav class="nav">
+			<div class="nav-container">
+				<a href="/">
+					<h2 class="nav-title">Where&#39;s the Any key?</h2>
+				</a>
+				<ul>
+    
+    
+</ul>
+			</div>
+		</nav>
+
+        
+
+<main>
+	<div class="post">
+		<div class="post-info">
+    <span>Written by</span>
+        me, of course
+        <br>
+        <span>on&nbsp;</span><time datetime="2020-05-08 00:00:00 &#43;0000 UTC">May 8, 2020</time>
+</div>
+		<h1 class="post-title">( DFS )</h1>
+<div class="post-line"></div>
+
+		
+
+		<p>Useful for finding cycles and is often used as step in the process for things like topological sorts (as demonstrated below) and finding strongly connected components. DFS is generally run to learn about a graph's structure and, unlike BFS which is ordinarily seeded with a single root vertex, DFS will iterate over all vertices. The <code>discovered</code> and <code>finished</code> times have a parenthesis structure where the intervals <span  class="math">\([d[u], f[u]] \:and\: [d[v], f[v]]\)</span> are either entirely disjoint, or one is entirely contained within the other.</p>
+
+<p>The predecessor subgraph forms a depth-first forest where the edges are tree edges.</p>
+
+<p><span  class="math">\(G_\pi = (V, E_\pi)\)</span> where</p>
+
+<p><span  class="math">\(E_\pi = \{(\pi[v], v) : v \in  V and \:\pi[v] \ne NIL\}\)</span> Basically the edges are those where the origin vertex was marked as a predecessor when running DFS.</p>
+
+<p>The running time is <span  class="math">\(\theta(V + E)\)</span>.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-clj" data-lang="clj"><span style="color:#e6db74">&#34;(G)raph, vertex (u), (c)olor, (d)iscovered, (f)inished, (p)redecessor,
+</span><span style="color:#e6db74">(t)ime, vertices (vs)&#34;</span>
+
+(<span style="color:#66d9ef">defn </span>waj [G]
+  <span style="color:#e6db74">&#34;whiten adjacency list&#34;</span>
+  (into {} (map (<span style="color:#66d9ef">fn </span>[[k]] [k <span style="color:#e6db74">&#34;white&#34;</span>]) G)))
+  
+(<span style="color:#66d9ef">defn </span>DFS-VISIT [G u [c d f p t]]
+  (<span style="color:#66d9ef">let </span>[t (inc t)
+        c (assoc c u <span style="color:#e6db74">&#34;gray&#34;</span>)
+        d (assoc d u t)
+        r (<span style="color:#66d9ef">loop </span>[vs (<span style="color:#a6e22e">u</span> G)
+                 [c d f p t][c d f p t]]
+            (<span style="color:#66d9ef">let </span>[v (first vs)]
+              (<span style="color:#66d9ef">if </span>(nil? v) [c d f p t]
+                  (<span style="color:#66d9ef">if </span>(= (<span style="color:#a6e22e">v</span> c) <span style="color:#e6db74">&#34;white&#34;</span>) <span style="color:#75715e">;; &#34;gray&#34; here would indicate a cycle</span>
+                    (<span style="color:#a6e22e">recur</span> (rest vs) (<span style="color:#a6e22e">DFS-VISIT</span> G v [c d f (assoc p v u) t]))
+                    (<span style="color:#a6e22e">recur</span> (rest vs) [c d f p t])))))
+        [c d f p t] r]
+    [(assoc c u <span style="color:#e6db74">&#34;black&#34;</span>) d (assoc f u (inc t)) p (inc t)]))
+
+
+(<span style="color:#66d9ef">defn </span>DFS [G]
+  (<span style="color:#66d9ef">loop </span>[vs (keys G)
+         [c d f p t] [(<span style="color:#a6e22e">waj</span> G) {} {} {} <span style="color:#ae81ff">0</span>]]
+    (<span style="color:#66d9ef">let </span>[u (first vs)]
+     (<span style="color:#66d9ef">if </span>(nil? u) [c d f p t]
+         (<span style="color:#66d9ef">if </span>(= (<span style="color:#a6e22e">u</span> c) <span style="color:#e6db74">&#34;white&#34;</span>)
+           (<span style="color:#a6e22e">recur</span> (rest vs) (<span style="color:#a6e22e">DFS-VISIT</span> G u [c d f p t])) 
+           (<span style="color:#a6e22e">recur</span> (rest vs) [c d f p t]))))))
+
+(<span style="color:#66d9ef">def </span>g {<span style="color:#e6db74">:a</span> [<span style="color:#e6db74">:b</span> <span style="color:#e6db74">:f</span>]
+        <span style="color:#e6db74">:b</span> [<span style="color:#e6db74">:c</span>]
+        <span style="color:#e6db74">:c</span> [<span style="color:#e6db74">:d</span> <span style="color:#e6db74">:e</span>]
+        <span style="color:#e6db74">:d</span> []
+        <span style="color:#e6db74">:e</span> [<span style="color:#e6db74">:g</span>]
+        <span style="color:#e6db74">:f</span> [<span style="color:#e6db74">:g</span> <span style="color:#e6db74">:e</span> <span style="color:#e6db74">:a</span>]
+        <span style="color:#e6db74">:g</span> []})
+
+(<span style="color:#a6e22e">DFS</span> g)
+
+<span style="color:#75715e">;; returns</span>
+[{<span style="color:#e6db74">:a</span> <span style="color:#e6db74">&#34;black&#34;</span>,
+  <span style="color:#e6db74">:b</span> <span style="color:#e6db74">&#34;black&#34;</span>,
+  <span style="color:#e6db74">:c</span> <span style="color:#e6db74">&#34;black&#34;</span>,
+  <span style="color:#e6db74">:d</span> <span style="color:#e6db74">&#34;black&#34;</span>,
+  <span style="color:#e6db74">:e</span> <span style="color:#e6db74">&#34;black&#34;</span>,
+  <span style="color:#e6db74">:f</span> <span style="color:#e6db74">&#34;black&#34;</span>,
+  <span style="color:#e6db74">:g</span> <span style="color:#e6db74">&#34;black&#34;</span>}
+ {<span style="color:#e6db74">:a</span> <span style="color:#ae81ff">1</span>, <span style="color:#e6db74">:b</span> <span style="color:#ae81ff">2</span>, <span style="color:#e6db74">:c</span> <span style="color:#ae81ff">3</span>, <span style="color:#e6db74">:d</span> <span style="color:#ae81ff">4</span>, <span style="color:#e6db74">:e</span> <span style="color:#ae81ff">6</span>, <span style="color:#e6db74">:g</span> <span style="color:#ae81ff">7</span>, <span style="color:#e6db74">:f</span> <span style="color:#ae81ff">12</span>}
+ {<span style="color:#e6db74">:d</span> <span style="color:#ae81ff">5</span>, <span style="color:#e6db74">:g</span> <span style="color:#ae81ff">8</span>, <span style="color:#e6db74">:e</span> <span style="color:#ae81ff">9</span>, <span style="color:#e6db74">:c</span> <span style="color:#ae81ff">10</span>, <span style="color:#e6db74">:b</span> <span style="color:#ae81ff">11</span>, <span style="color:#e6db74">:f</span> <span style="color:#ae81ff">13</span>, <span style="color:#e6db74">:a</span> <span style="color:#ae81ff">14</span>}
+ {<span style="color:#e6db74">:b</span> <span style="color:#e6db74">:a</span>, <span style="color:#e6db74">:c</span> <span style="color:#e6db74">:b</span>, <span style="color:#e6db74">:d</span> <span style="color:#e6db74">:c</span>, <span style="color:#e6db74">:e</span> <span style="color:#e6db74">:c</span>, <span style="color:#e6db74">:g</span> <span style="color:#e6db74">:e</span>, <span style="color:#e6db74">:f</span> <span style="color:#e6db74">:a</span>}
+ <span style="color:#ae81ff">14</span>]
+
+(<span style="color:#66d9ef">def </span>g22-7 {<span style="color:#e6db74">:socks</span> [<span style="color:#e6db74">:shoes</span>]
+            <span style="color:#e6db74">:undershorts</span> [<span style="color:#e6db74">:pants</span> <span style="color:#e6db74">:shoes</span>]
+            <span style="color:#e6db74">:pants</span> [<span style="color:#e6db74">:shoes</span> <span style="color:#e6db74">:belt</span>]
+            <span style="color:#e6db74">:shoes</span> []
+            <span style="color:#e6db74">:watch</span> []
+            <span style="color:#e6db74">:shirt</span> [<span style="color:#e6db74">:belt</span> <span style="color:#e6db74">:tie</span>]
+            <span style="color:#e6db74">:belt</span> [<span style="color:#e6db74">:jacket</span>]
+            <span style="color:#e6db74">:tie</span> [<span style="color:#e6db74">:jacket</span>]
+            <span style="color:#e6db74">:jacket</span> []})
+
+(<span style="color:#a6e22e">DFS</span> g22-7)
+
+<span style="color:#75715e">;; returns</span>
+[{<span style="color:#e6db74">:tie</span> <span style="color:#e6db74">&#34;black&#34;</span>,
+  <span style="color:#e6db74">:jacket</span> <span style="color:#e6db74">&#34;black&#34;</span>,
+  <span style="color:#e6db74">:shoes</span> <span style="color:#e6db74">&#34;black&#34;</span>,
+  <span style="color:#e6db74">:shirt</span> <span style="color:#e6db74">&#34;black&#34;</span>,
+  <span style="color:#e6db74">:socks</span> <span style="color:#e6db74">&#34;black&#34;</span>,
+  <span style="color:#e6db74">:belt</span> <span style="color:#e6db74">&#34;black&#34;</span>,
+  <span style="color:#e6db74">:pants</span> <span style="color:#e6db74">&#34;black&#34;</span>,
+  <span style="color:#e6db74">:watch</span> <span style="color:#e6db74">&#34;black&#34;</span>,
+  <span style="color:#e6db74">:undershorts</span> <span style="color:#e6db74">&#34;black&#34;</span>}
+ {<span style="color:#e6db74">:tie</span> <span style="color:#ae81ff">1</span>,
+  <span style="color:#e6db74">:jacket</span> <span style="color:#ae81ff">2</span>,
+  <span style="color:#e6db74">:shoes</span> <span style="color:#ae81ff">5</span>,
+  <span style="color:#e6db74">:shirt</span> <span style="color:#ae81ff">7</span>,
+  <span style="color:#e6db74">:belt</span> <span style="color:#ae81ff">8</span>,
+  <span style="color:#e6db74">:socks</span> <span style="color:#ae81ff">11</span>,
+  <span style="color:#e6db74">:pants</span> <span style="color:#ae81ff">13</span>,
+  <span style="color:#e6db74">:watch</span> <span style="color:#ae81ff">15</span>,
+  <span style="color:#e6db74">:undershorts</span> <span style="color:#ae81ff">17</span>}
+ {<span style="color:#e6db74">:jacket</span> <span style="color:#ae81ff">3</span>,
+  <span style="color:#e6db74">:tie</span> <span style="color:#ae81ff">4</span>,
+  <span style="color:#e6db74">:shoes</span> <span style="color:#ae81ff">6</span>,
+  <span style="color:#e6db74">:belt</span> <span style="color:#ae81ff">9</span>,
+  <span style="color:#e6db74">:shirt</span> <span style="color:#ae81ff">10</span>,
+  <span style="color:#e6db74">:socks</span> <span style="color:#ae81ff">12</span>,
+  <span style="color:#e6db74">:pants</span> <span style="color:#ae81ff">14</span>,
+  <span style="color:#e6db74">:watch</span> <span style="color:#ae81ff">16</span>,
+  <span style="color:#e6db74">:undershorts</span> <span style="color:#ae81ff">18</span>}
+ {<span style="color:#e6db74">:jacket</span> <span style="color:#e6db74">:tie</span>, <span style="color:#e6db74">:belt</span> <span style="color:#e6db74">:shirt</span>}
+ <span style="color:#ae81ff">18</span>]</code></pre></div>
+<p>An example of using the output of DFS to generate a topological sort.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-clj" data-lang="clj">(<span style="color:#66d9ef">defn </span>topo [G]
+  (<span style="color:#66d9ef">let </span>[[_ _ f] (<span style="color:#a6e22e">DFS</span> G)]
+    (reverse (sort-by (<span style="color:#66d9ef">fn </span>[[_ v]] v) f))))
+
+(<span style="color:#a6e22e">topo</span> g22-7)
+
+<span style="color:#75715e">;; returns</span>
+([<span style="color:#e6db74">:undershorts</span> <span style="color:#ae81ff">18</span>]
+ [<span style="color:#e6db74">:watch</span> <span style="color:#ae81ff">16</span>]
+ [<span style="color:#e6db74">:pants</span> <span style="color:#ae81ff">14</span>]
+ [<span style="color:#e6db74">:socks</span> <span style="color:#ae81ff">12</span>]
+ [<span style="color:#e6db74">:shirt</span> <span style="color:#ae81ff">10</span>]
+ [<span style="color:#e6db74">:belt</span> <span style="color:#ae81ff">9</span>]
+ [<span style="color:#e6db74">:shoes</span> <span style="color:#ae81ff">6</span>]
+ [<span style="color:#e6db74">:tie</span> <span style="color:#ae81ff">4</span>]
+ [<span style="color:#e6db74">:jacket</span> <span style="color:#ae81ff">3</span>])</code></pre></div>
+
+		
+	</div>
+
+	<div class="pagination">
+		<a href="/posts/bfs/" class="left arrow">&#8592;</a>
+
+		<a href="#" class="top">Top</a>
+	</div>
+</main>
+
+
+        		<footer>
+			  <span>
+			      &copy; <time datetime="2020-05-08 23:25:19.95649 -0400 EDT m=&#43;0.236619561">2020</time> . Made with <a href='https://gohugo.io'>Hugo</a> using the <a href='https://github.com/EmielH/tale-hugo/'>Tale</a> theme.
+			  </span>
+		</footer>
+    
+
+    </body>
+</html>
