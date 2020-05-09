@@ -4,18 +4,24 @@
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-		<title>(((((((((( BFS )))))))))) &middot; Where&#39;s the Any key?</title>
+		  <title>( BFS ) &middot; Where&#39;s the Any key?</title>
 
-		
+		  
   		<link rel="stylesheet" href="/css/style.css">
-		<link rel="stylesheet" href="/css/fonts.css">
-		
-		<link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
-		<link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
-		<link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+		  <link rel="stylesheet" href="/css/fonts.css">
+		  
+		  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+		  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+		  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
 
-		
-		<link href="" rel="alternate" type="application/rss+xml" title="Where&#39;s the Any key?" />
+		  
+		  <link href="" rel="alternate" type="application/rss+xml" title="Where&#39;s the Any key?" />
+     
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.css" integrity="sha384-BdGj8xC2eZkQaxoQ8nSLefg4AV4/AwB3Fj+8SUSo7pnKP6Eoy18liIKTPn9oBYNG" crossorigin="anonymous">
+      <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.js" integrity="sha384-JiKN5O8x9Hhs/UE5cT5AAJqieYlOZbGT3CHws/y97o3ty4R7/O5poG9F3JoiOYw1" crossorigin="anonymous"></script>
+      <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous"
+              onload="renderMathInElement(document.body);"></script>
+
 	</head>
 
     <body>
@@ -41,7 +47,7 @@
         <br>
         <span>on&nbsp;</span><time datetime="2020-05-03 00:00:00 &#43;0000 UTC">May 3, 2020</time>
 </div>
-		<h1 class="post-title">(((((((((( BFS ))))))))))</h1>
+		<h1 class="post-title">( BFS )</h1>
 <div class="post-line"></div>
 
 		
@@ -56,6 +62,8 @@ tree from v to s corresponds to a shortest path from v to s in G.</p>
 <p>BFS expands the frontier between discovered and undiscovered vertices
 uniformly across the breadth of the frontier, it discovers all vertices at a
 distance k from s before it discovers any vertices k+1 from s.</p>
+<p>Concepts from BFS, and sometimes the algorithm directly, are used in numerous
+shortest path scenarios for both weighted and unweighed graphs.</p>
 <p>BFS is O(V + E).</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-clj" data-lang="clj">
 (<span style="color:#66d9ef">defn </span>waj [G]
@@ -110,6 +118,7 @@ distance k from s before it discovers any vertices k+1 from s.</p>
 	</div>
 
 	<div class="pagination">
+		<a href="/posts/dfs/" class="right arrow">&#8594;</a>
 
 		<a href="#" class="top">Top</a>
 	</div>
@@ -117,10 +126,11 @@ distance k from s before it discovers any vertices k+1 from s.</p>
 
 
         		<footer>
-			<span>
-			&copy; <time datetime="2020-05-03 21:41:15.261962 -0400 EDT m=&#43;0.204073063">2020</time> . Made with <a href='https://gohugo.io'>Hugo</a> using the <a href='https://github.com/EmielH/tale-hugo/'>Tale</a> theme.
-			</span>
+			  <span>
+			      &copy; <time datetime="2020-05-08 23:23:13.67506 -0400 EDT m=&#43;0.265821602">2020</time> . Made with <a href='https://gohugo.io'>Hugo</a> using the <a href='https://github.com/EmielH/tale-hugo/'>Tale</a> theme.
+			  </span>
 		</footer>
+    
 
     </body>
 </html>

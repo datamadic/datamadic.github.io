@@ -6,13 +6,22 @@
     <description>Recent content on Where&#39;s the Any key?</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 03 May 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 08 May 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://datamadic.github.io/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>(((((((((( BFS ))))))))))</title>
+      <title>( DFS )</title>
+      <link>https://datamadic.github.io/posts/dfs/</link>
+      <pubDate>Fri, 08 May 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://datamadic.github.io/posts/dfs/</guid>
+      <description>Useful for finding cycles and is often used as step in the process for things like topological sorts (as demonstrated below) and finding strongly connected components. DFS is generally run to learn about a graph&#39;s structure and, unlike BFS which is ordinarily seeded with a single root vertex, DFS will iterate over all vertices. The discovered and finished times have a parenthesis structure where the intervals \([d[u], f[u]] \:and\: [d[v], f[v]]\) are either entirely disjoint, or one is entirely contained within the other.</description>
+    </item>
+    
+    <item>
+      <title>( BFS )</title>
       <link>https://datamadic.github.io/posts/bfs/</link>
       <pubDate>Sun, 03 May 2020 00:00:00 +0000</pubDate>
       

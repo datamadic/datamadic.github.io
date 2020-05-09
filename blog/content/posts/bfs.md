@@ -1,5 +1,5 @@
 ---
-title: "(((((((((( BFS ))))))))))"
+title: "( BFS )"
 date: 2020-05-03
 draft: false
 author: me, of course
@@ -18,6 +18,9 @@ tree from v to s corresponds to a shortest path from v to s in G.
 BFS expands the frontier between discovered and undiscovered vertices
 uniformly across the breadth of the frontier, it discovers all vertices at a
 distance k from s before it discovers any vertices k+1 from s.
+
+Concepts from BFS, and sometimes the algorithm directly, are used in numerous
+shortest path scenarios for both weighted and unweighed graphs.
 
 BFS is O(V + E).
 
