@@ -3,17 +3,27 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://datamadic.github.io/posts/dfs/</loc>
-    <lastmod>2020-05-08T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://datamadic.github.io/posts/</loc>
-    <lastmod>2020-05-08T00:00:00+00:00</lastmod>
+    <loc>https://datamadic.github.io/about/</loc>
+    <lastmod>2020-07-03T23:07:50-04:00</lastmod>
   </url>
   
   <url>
     <loc>https://datamadic.github.io/</loc>
+    <lastmod>2020-07-03T23:07:50-04:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://datamadic.github.io/posts/lazy/</loc>
+    <lastmod>2020-07-03T18:42:59-04:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://datamadic.github.io/posts/</loc>
+    <lastmod>2020-07-03T18:42:59-04:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://datamadic.github.io/posts/dfs/</loc>
     <lastmod>2020-05-08T00:00:00+00:00</lastmod>
   </url>
   
