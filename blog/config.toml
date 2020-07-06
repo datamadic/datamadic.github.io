@@ -2,3 +2,12 @@ baseURL = "https://datamadic.github.io/"
 languageCode = "en-us"
 title = "Where's the Any key?"
 theme = "tale"
+
+[menu]
+
+  [[menu.main]]
+    identifier = "about"
+    name = "about"
+    pre = "<i class='fa fa-heart'></i>"
+    url = "/about"
+    weight = -110
