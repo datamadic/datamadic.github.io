@@ -7,7 +7,7 @@ katex: true
 markup: "mmark"
 # menu: "main"
 ---
-
+# WIP 
 Most sequence functions in Clojure, such as `map`, `range`, `filter` and others, return lazy sequences. This can be used to write methods that take advantage of lazy sequences where you would normally reach for loops in other languages. 
 
 A simple example (and way to construct lazy seqs) is the Clojure function `iterate`. It takes a function and an initial value and will apply that function to the value, and each subsequent value produced, to generate "infinitely" many values for that sequence.
