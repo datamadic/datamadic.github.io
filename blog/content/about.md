@@ -14,6 +14,6 @@ Hi, I'm Xavier. I'm interested in a number of things including: programming, sur
 
 Work History ([pdf](/xoneil-resume.pdf))
 
-Sandy Hook
+Rare Jersey Surf
 ![alt text](/xavier.jpg "the cove")
 
