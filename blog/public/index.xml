@@ -17,7 +17,7 @@
       <pubDate>Fri, 03 Jul 2020 23:07:50 -0400</pubDate>
       
       <guid>https://datamadic.github.io/about/</guid>
-      <description>Here An attempt to write out some the topics I look into, mostly to help future me remember and to practice writing. As such, any coding examples are largely focused on the computations they perform and not friendly naming as you would expect in real code. Think an algo book&amp;rsquo;s psudo-code.
+      <description>Here An attempt to write out some of the topics I look into, mostly to help future me remember and to practice writing. As such, any coding examples are largely focused on the computations they perform and not friendly naming as you would expect in real code. Think an algo book&amp;rsquo;s psudo-code.
 Also fair game here would be musings about random topics and things I want to remember.
 Me Hi, I&amp;rsquo;m Xavier.</description>
     </item>
@@ -28,8 +28,8 @@ Me Hi, I&amp;rsquo;m Xavier.</description>
       <pubDate>Fri, 03 Jul 2020 18:42:59 -0400</pubDate>
       
       <guid>https://datamadic.github.io/posts/lazy/</guid>
-      <description>(Work In Progress) Most sequence functions in Clojure, such as map, range, filter and others, return lazy sequences. This can be used to write methods that take advantage of lazy sequences where you would normally reach for loops in other languages.
-A simple example (and way to construct lazy seqs) is the Clojure function iterate. It takes a function and an initial value and will apply that function to the value, and each subsequent value produced, to generate &amp;quot;infinitely&amp;quot; many values for that sequence.</description>
+      <description>(Work In Progress) Most sequence functions in Clojure, such as map, range, filter and others, return lazy sequences. This can be used to write methods that take advantage of lazy sequences where you would normally reach for loops. The benefits typically associated with lazy sequences are
+ Only calculating what you need when you need it (if ever) Being able to represent infinite sequences that would not fit in memory  After working with them a bit I&#39;d add</description>
     </item>
     
     <item>
