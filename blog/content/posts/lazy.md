@@ -84,7 +84,7 @@ So now that we have modeled our sequences, let's combine them to arrive at the s
      (depr 2000 0.985))
      
 ;; note, I removed the decimals for readability
-(2000 2970 3940 4911 5882 6854 7826 8799 9772 10745 ...)
+;; (2000 2970 3940 4911 5882 6854 7826 8799 9772 10745 ...)
 ```
 
 Then we want to subtract the deprecating value of the new car. We can do that by adding the negated value, again using the fact that `map` can take and return lazy sequences.
