@@ -17,7 +17,7 @@
       <pubDate>Fri, 03 Jul 2020 18:42:59 -0400</pubDate>
       
       <guid>https://datamadic.github.io/posts/lazy/</guid>
-      <description>(Work In Progress) Most sequence functions in Clojure, such as map, range, filter and others, return lazy sequences. This can be used to write methods that take advantage of lazy sequences where you would normally reach for loops. The benefits typically associated with lazy sequences are
+      <description>Most sequence functions in Clojure, such as map, range, filter and others, return lazy sequences. This can be used to write methods that take advantage of lazy sequences where you would normally reach for loops. The benefits typically associated with lazy sequences are
  Only calculating what you need when you need it (if ever) Being able to represent infinite sequences that would not fit in memory  After working with them a bit I&#39;d add</description>
     </item>
     

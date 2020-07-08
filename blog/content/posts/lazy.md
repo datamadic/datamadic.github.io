@@ -7,7 +7,6 @@ katex: true
 markup: "mmark"
 # menu: "main"
 ---
-# (Work In Progress)
 
 Most sequence functions in Clojure, such as `map`, `range`, `filter` and others, return lazy sequences. This can be used to write methods that take advantage of lazy sequences where you would normally reach for loops. The benefits typically associated with lazy sequences are
 * Only calculating what you need when you need it (if ever)
