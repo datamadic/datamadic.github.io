@@ -3,6 +3,7 @@
 pushd blog
 
 # hugo new posts/bfs.md
+# hugo server -D
 
 hugo -D
 cp -r public/* ../

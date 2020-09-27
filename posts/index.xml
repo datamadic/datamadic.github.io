@@ -6,10 +6,20 @@
     <description>Recent content in Posts on Where&#39;s the Any key?</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 03 Jul 2020 18:42:59 -0400</lastBuildDate>
+    <lastBuildDate>Sat, 26 Sep 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://datamadic.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Surfing With Clojure</title>
+      <link>https://datamadic.github.io/posts/cn2020/</link>
+      <pubDate>Sat, 26 Sep 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://datamadic.github.io/posts/cn2020/</guid>
+      <description>I was honored to present at Clojure/north 2020. Due to Covid 19, it ended up being a virtual conference, but was a blast nonetheless as the organizers did a fantastic job pulling it all together.
+The talk was centered around an application that I have been working on in my spare time which I call DeepSwell that allows me to better visualize the surf forecast for my local area. The basic idea is to continually monitor and record the forecasts provided by NOAA as well as video snippets from the surf cams for those times.</description>
+    </item>
     
     <item>
       <title>Lazy</title>
