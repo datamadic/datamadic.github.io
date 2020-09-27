@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+		  <title>Surfing With Clojure &middot; Where&#39;s the Any key?</title>
+
+		  
+  		<link rel="stylesheet" href="/css/style.css">
+		  <link rel="stylesheet" href="/css/fonts.css">
+		  
+		  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+		  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+		  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+
+		  
+		  <link href="" rel="alternate" type="application/rss+xml" title="Where&#39;s the Any key?" />
+     
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.css" integrity="sha384-BdGj8xC2eZkQaxoQ8nSLefg4AV4/AwB3Fj+8SUSo7pnKP6Eoy18liIKTPn9oBYNG" crossorigin="anonymous">
+      <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.js" integrity="sha384-JiKN5O8x9Hhs/UE5cT5AAJqieYlOZbGT3CHws/y97o3ty4R7/O5poG9F3JoiOYw1" crossorigin="anonymous"></script>
+      <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous"
+              onload="renderMathInElement(document.body);"></script>
+
+	</head>
+
+    <body>
+        		<nav class="nav">
+			<div class="nav-container">
+				<a href="/">
+					<h2 class="nav-title">Where&#39;s the Any key?</h2>
+				</a>
+				<ul>
+    
+    
+        <li>
+            <a href="/about">
+                <i class='fa fa-heart'></i>
+                <span>about</span>
+                
+            </a>
+        </li>
+    
+</ul>
+			</div>
+		</nav>
+
+        
+
+<main>
+	<div class="post">
+		<div class="post-info">
+    <span>Written by</span>
+        
+        <br>
+        <span>on&nbsp;</span><time datetime="2020-09-26 00:00:00 &#43;0000 UTC">September 26, 2020</time>
+</div>
+		<h1 class="post-title">Surfing With Clojure</h1>
+<div class="post-line"></div>
+
+		
+
+		<p>I was honored to present at Clojure/north 2020. Due to Covid 19, it ended up being a virtual conference, but was a blast nonetheless as the organizers did a fantastic job pulling it all together.</p>
+
+<p>The talk was centered around an application that I have been working on in my spare time which I call DeepSwell that allows me to better visualize the surf forecast for my local area. The basic idea is to continually monitor and record the forecasts provided by NOAA as well as video snippets from the surf cams for those times. The recorded forecast images are then compared to future forecasts, with the closest matches as determined by image analysis being my best guess at what the surf will actually look like. Once I have a list of matches, I use the times associated with them to look up the corresponding videos which become my forecasts.</p>
+
+<p>DeepSwell also supports the ability to search by conditions. By entering values for surf height, direction etc. it ranks and sorts the videos that best match the selected conditions and lets you play them as well as displays their meta information such as date and location.</p>
+
+<p>DeepSwell is primarily written in Clojure and ClojureScript with some Python to support the machine learning aspects. The general architecture is as follows, the heavy borders represent things written in Clojure/Script:</p>
+
+<p><figure><img src="/dsarch.png" alt="alt text" title="DeepSwell Architecture"><figcaption>DeepSwell Architecture</figcaption></figure></p>
+
+<p>For now it all just exists locally, but hopefully I'll get some time to add additional locations and host it as a proper app for people to use.</p>
+
+<h2 id="full-clojurenorth-presentation">Full Clojure/north Presentation</h2>
+
+<blockquote>
+<p>Using Clojure and ClojureScript to bring the surf forecasts to life, DeepSwell shows users real videos of what the surf will look like in the future. But how can you have videos of the waves that haven't happened yet? In this talk, Xavier shows how tying together different components makes it possible.</p>
+</blockquote>
+
+<p>
+<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+  <iframe src="https://www.youtube.com/embed/tweX17BCgG8" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" allowfullscreen title="YouTube Video"></iframe>
+</div>
+
+<a href="https://clojurenorth.com/xavier-o-neil.html">Clojure/north page</a></p>
+
+
+		
+	</div>
+
+	<div class="pagination">
+		<a href="/about/" class="left arrow">&#8592;</a>
+
+		<a href="#" class="top">Top</a>
+	</div>
+</main>
+
+
+        		<footer>
+			  <span>
+			      &copy; <time datetime="2020-09-27 13:07:36.293633 -0400 EDT m=&#43;0.100883970">2020</time> . Made with <a href='https://gohugo.io'>Hugo</a> using the <a href='https://github.com/EmielH/tale-hugo/'>Tale</a> theme.
+			  </span>
+		</footer>
+    
+
+    </body>
+</html>
