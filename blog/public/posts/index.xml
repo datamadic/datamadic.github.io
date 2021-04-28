@@ -6,10 +6,20 @@
     <description>Recent content in Posts on Where&#39;s the Any key?</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 26 Sep 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 10 Apr 2021 02:54:04 -0400</lastBuildDate>
     
 	<atom:link href="https://datamadic.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>How To Run A Bar</title>
+      <link>https://datamadic.github.io/posts/mm/</link>
+      <pubDate>Sat, 10 Apr 2021 02:54:04 -0400</pubDate>
+      
+      <guid>https://datamadic.github.io/posts/mm/</guid>
+      <description>how market makers work
+incomplete / draft Imagine a man in a bar. He looks up to order a beer and notices something strange. Written next to the Miller Lite he wants to order there are two prices; $3.00 and $3.10. He asks the bartender if there some kind of special, or perhaps a mistake on the menu. &amp;quot;No mistake&amp;quot; the bartender answers, &amp;quot;If you want a Miller Lite it costs $3.</description>
+    </item>
     
     <item>
       <title>Surfing With Clojure</title>

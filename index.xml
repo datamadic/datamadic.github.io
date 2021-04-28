@@ -12,6 +12,16 @@
     
     
     <item>
+      <title>How To Run A Bar</title>
+      <link>https://datamadic.github.io/posts/mm/</link>
+      <pubDate>Sat, 10 Apr 2021 02:54:04 -0400</pubDate>
+      
+      <guid>https://datamadic.github.io/posts/mm/</guid>
+      <description>how market makers work
+incomplete / draft Imagine a man in a bar. He looks up to order a beer and notices something strange. Written next to the Miller Lite he wants to order there are two prices; $3.00 and $3.10. He asks the bartender if there some kind of special, or perhaps a mistake on the menu. &amp;quot;No mistake&amp;quot; the bartender answers, &amp;quot;If you want a Miller Lite it costs $3.</description>
+    </item>
+    
+    <item>
       <title>Surfing With Clojure</title>
       <link>https://datamadic.github.io/posts/cn2020/</link>
       <pubDate>Sat, 26 Sep 2020 00:00:00 +0000</pubDate>
