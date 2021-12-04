@@ -12,6 +12,17 @@
     
     
     <item>
+      <title>Ris-k</title>
+      <link>https://datamadic.github.io/posts/risk/</link>
+      <pubDate>Sat, 04 Dec 2021 01:49:45 -0500</pubDate>
+      
+      <guid>https://datamadic.github.io/posts/risk/</guid>
+      <description>I have been playing a lot of Risk with my family recently and got to wondering what the chances of success are per battle. The internet says the following:
+
+What might it look like to generate these results on our own using simulated dice throws and battles? Because this is one of those toy problems that is quite math-y, let&#39;s use k, or kona to be precise. It will allow us to be terse almost to the point of having executable formulae that define our problem.</description>
+    </item>
+    
+    <item>
       <title>How To Run A Bar</title>
       <link>https://datamadic.github.io/posts/mm/</link>
       <pubDate>Sat, 10 Apr 2021 02:54:04 -0400</pubDate>
