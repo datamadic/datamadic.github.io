@@ -66,7 +66,7 @@
 
 <p>What might it look like to generate these results on our own using simulated dice throws and battles? Because this is one of those toy problems that is quite math-y, let's use <code>k</code>, or <a href="https://github.com/kevinlawler/kona">kona</a> to be precise. It will allow us to be terse almost to the point of having executable formulae that define our problem.</p>
 
-<p>Let's generate 50,000 simulated roles of three attackers vs two defenders, if the internet is correct we should see something close to 37% for the attacker winning both, 33% for going one-and-one and a 29% chance of the attacker losing both solders. Here is the code we can use to do that:</p>
+<p>Let's generate 50,000 simulated roles of three attackers vs two defenders, if the internet is correct we should see something close to 37% for the attacker winning both, 33% for going one-and-one and a 29% chance of the attacker losing both soldiers. Here is the code we can use to do that:</p>
 <pre><code class="language-k" data-lang="k"> n:50000.
  r1:{1+1 _draw 6}; r2:{a@&gt;a:1+2 _draw 6}; r3:{2#a@&gt;a:1+3 _draw 6}
  {(#x)%n}&#39;={c@&gt;c:+/&#39;x}(r3&#39;!n){0&lt;x-y}&#39;r2&#39;!n
@@ -84,7 +84,7 @@
 
 <p>As I was looking up the percentages, I came across an interesting <a href="https://betterprogramming.pub/risk-board-game-battle-automation-5e2d955cc9b3">article</a> that simulated repeated battles given a starting number of troops per side, not just chances per discrete battle. Let's model that as well. Using the roll functions from above.</p>
 <pre><code class="language-k" data-lang="k"> r:(r3;r2;r1)                   \ rolls 
- gr:{(r@*&amp;(x+1)&gt;3 2 1)[]        \ get roll type by number of solders
+ gr:{(r@*&amp;(x+1)&gt;3 2 1)[]        \ get roll type by number of soldiers
  c:{0&lt;((#b)#gr x)-b:gr x&amp;2&amp;y}   \ get result of single battle by num attack, defend 
  b:{{{(x&gt;0)&amp;y&gt;0}. x}{{(x-+/0=a;y-+/1=a:c[x;y])}. x}\(x;y)}   \ battle!
  
@@ -186,7 +186,7 @@ r3:{2#'{a@>a:1+3 _draw 6}'!x}
 
         		<footer>
 			  <span>
-			      &copy; <time datetime="2021-12-06 04:12:12.207585 -0500 EST m=&#43;0.249905371">2021</time> . Made with <a href='https://gohugo.io'>Hugo</a> using the <a href='https://github.com/EmielH/tale-hugo/'>Tale</a> theme.
+			      &copy; <time datetime="2021-12-06 12:16:23.66597 -0500 EST m=&#43;0.176035798">2021</time> . Made with <a href='https://gohugo.io'>Hugo</a> using the <a href='https://github.com/EmielH/tale-hugo/'>Tale</a> theme.
 			  </span>
 		</footer>
     

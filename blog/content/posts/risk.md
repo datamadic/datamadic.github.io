@@ -13,7 +13,7 @@ I have been playing a lot of Risk with my family recently and got to wondering w
 
 What might it look like to generate these results on our own using simulated dice throws and battles? Because this is one of those toy problems that is quite math-y, let's use `k`, or [kona](https://github.com/kevinlawler/kona) to be precise. It will allow us to be terse almost to the point of having executable formulae that define our problem.     
 
-Let's generate 50,000 simulated roles of three attackers vs two defenders, if the internet is correct we should see something close to 37% for the attacker winning both, 33% for going one-and-one and a 29% chance of the attacker losing both solders. Here is the code we can use to do that:
+Let's generate 50,000 simulated roles of three attackers vs two defenders, if the internet is correct we should see something close to 37% for the attacker winning both, 33% for going one-and-one and a 29% chance of the attacker losing both soldiers. Here is the code we can use to do that:
 
 ```k
  n:50000.
@@ -37,7 +37,7 @@ As I was looking up the percentages, I came across an interesting [article](http
 
 ```k
  r:(r3;r2;r1)                   \ rolls 
- gr:{(r@*&(x+1)>3 2 1)[]        \ get roll type by number of solders
+ gr:{(r@*&(x+1)>3 2 1)[]        \ get roll type by number of soldiers
  c:{0<((#b)#gr x)-b:gr x&2&y}   \ get result of single battle by num attack, defend 
  b:{{{(x>0)&y>0}. x}{{(x-+/0=a;y-+/1=a:c[x;y])}. x}\(x;y)}   \ battle!
  
