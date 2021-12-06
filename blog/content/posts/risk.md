@@ -56,18 +56,18 @@ As I was looking up the percentages, I came across an interesting [article](http
 
 To be able to battle we need to account for the different combinations that can arise as the troops on each side dwindle. We do that with the function `c` which takes the minimum of 2 (the max for a defender), the number of defenders and the number attacking `x&2&y`, gets a roll and lines it up with the the number attacking `((#b)#gr x)` (3v2, 3v1, 2v2, 2v1, 1v1) returning the results as a list of losses for the defender. We do this iteratively, applying the wins and losses to each army `(x-+/0=a;y-+/1=a:c[x;y])` until one side is exhausted `{{(x>0)&y>0}. x}`.
 
-If we want to run a number of battles, here keeping each side at starting with 40, we can  do that with the following. We will run 10 battles, here we see the attacker in the first column winning 7/10:
+If we want to run a number of battles, here keeping each side at starting with 15, we can  do that with the following. We will run 10 battles, here we see the attacker in the first column winning 7/10:
 ```k
-{*|b[4;4]}'!10
-(2 0
- 3 0
+{*|b[15;15]}'!10
+(11 0
  0 3
- 2 0
- 1 0
- 0 2
  4 0
- 3 0
+ 9 0
+ 2 0
  0 2
+ 5 0
+ 0 2
+ 6 0
  4 0)
 ```
 None of these simulations seemed to have helped me too much though, I lost again tonight :)  
