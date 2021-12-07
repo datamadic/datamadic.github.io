@@ -37,7 +37,7 @@ As I was looking up the percentages, I came across an interesting [article](http
 
 ```k
  r:(r3;r2;r1)                   \ rolls 
- gr:{(r@*&(x+1)>3 2 1)[]}        \ get roll type by number of soldiers
+ gr:{(r@*&(x+1)>3 2 1)[]}       \ get roll type by number of soldiers
  c:{0<((#b)#gr x)-b:gr x&2&y}   \ get result of single battle by num attack, defend 
  b:{{{(x>0)&y>0}. x}{{(x-+/0=a;y-+/1=a:c[x;y])}. x}\(x;y)}   \ battle!
  
