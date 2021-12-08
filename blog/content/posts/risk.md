@@ -18,7 +18,7 @@ Let's generate 50,000 simulated roles of three attackers vs two defenders, if th
 ```k
  n:50000.
  r1:{1+1 _draw 6}; r2:{a@>a:1+2 _draw 6}; r3:{2#a@>a:1+3 _draw 6}
- {(#x)%n}'={c@>c:+/'x}(r3'!n){0<x-y}'r2'!n
+ {(#x)%n}'={a@>a:+/'x}(r3'!n){0<x-y}'r2'!n
 
  \ the result I got this run  => 0.37436 0.3346 0.29104
  ```
