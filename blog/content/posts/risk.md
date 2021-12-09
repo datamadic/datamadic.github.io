@@ -39,7 +39,7 @@ As I was looking up the percentages, I came across an interesting [article](http
  r:(r3;r2;r1)                   \ rolls 
  gr:{(r@*&(x+1)>3 2 1)[]}       \ get roll type by number of soldiers
  c:{0<((#b)#gr x)-b:gr x&2&y}   \ get result of single battle by num attack, defend 
- b:{{{(x>0)&y>0}. x}{{(x-+/0=a;y-+/1=a:c[x;y])}. x}\(x;y)}   \ battle!
+ b:{{{&/(x;y)}. x}{{(x-+/0=a;y-+/1=a:c[x;y])}. x}\(x;y)}    \ battle!
  
  b[40;40]
  \ the result I got this run (attacker in first column, losing here) => 
@@ -54,7 +54,7 @@ As I was looking up the percentages, I came across an interesting [article](http
  0 2)
 ```
 
-To be able to battle we need to account for the different combinations that can arise as the troops on each side dwindle. We do that with the function `c` which takes the minimum of 2 (the max for a defender), the number of defenders and the number attacking `x&2&y`, gets a roll and lines it up with the the number attacking `((#b)#gr x)` (3v2, 3v1, 2v2, 2v1, 1v1) returning the results as a list of losses for the defender. We do this iteratively, applying the wins and losses to each army `(x-+/0=a;y-+/1=a:c[x;y])` until one side is exhausted `{{(x>0)&y>0}. x}`.
+To be able to battle we need to account for the different combinations that can arise as the troops on each side dwindle. We do that with the function `c` which takes the minimum of 2 (the max for a defender), the number of defenders and the number attacking `x&2&y`, gets a roll and lines it up with the the number attacking `((#b)#gr x)` (3v2, 3v1, 2v2, 2v1, 1v1) returning the results as a list of losses for the defender. We do this iteratively, applying the wins and losses to each army `(x-+/0=a;y-+/1=a:c[x;y])` until one side is exhausted `{&/(x;y)}`.
 
 If we want to run a number of battles, here keeping each side at starting with 15, we can  do that with the following. We will run 10 battles, here we see the attacker in the first column winning 7/10:
 ```k
