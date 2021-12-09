@@ -20,7 +20,7 @@ Let's generate 50,000 simulated roles of three attackers vs two defenders, if th
  r1:{1+1 _draw 6}; r2:{a@>a:1+2 _draw 6}; r3:{2#a@>a:1+3 _draw 6}
  {(#x)%n}'={a@>a:+/'x}(r3'!n){0<x-y}'r2'!n
 
- \ the result I got this run  => 0.37436 0.3346 0.29104
+ / the result I got this run  => 0.37436 0.3346 0.29104
  ```
 
 Looks like the internet never lies, our results are within a few tenths of a percent across the board with 37.4% attacker wins both, about 33.5% of going one-and-one and 29.1% of the attacker losing both soldiers.
@@ -36,13 +36,13 @@ I won't go over the "how" in terms of the code too deeply, but briefly, this is 
 As I was looking up the percentages, I came across an interesting [article](https://betterprogramming.pub/risk-board-game-battle-automation-5e2d955cc9b3) that simulated repeated battles given a starting number of troops per side, not just chances per discrete battle. Let's model that as well. Using the roll functions from above. 
 
 ```k
- r:(r3;r2;r1)                   \ rolls 
- gr:{(r@*&(x+1)>3 2 1)[]}       \ get roll type by number of soldiers
- c:{0<((#b)#gr x)-b:gr x&2&y}   \ get result of single battle by num attack, defend 
+ r:(r3;r2;r1)                   / rolls 
+ gr:{(r@*&(x+1)>3 2 1)[]}       / get roll type by number of soldiers
+ c:{0<((#b)#gr x)-b:gr x&2&y}   / get result of single battle by num attack, defend 
  b:{{{&/(x;y)}. x}{{(x-+/0=a;y-+/1=a:c[x;y])}. x}\(x;y)}    \ battle!
  
  b[40;40]
- \ the result I got this run (attacker in first column, losing here) => 
+ / the result I got this run (attacker in first column, losing here) => 
  (40 40
  39 39
  37 39
