@@ -39,7 +39,7 @@ As I was looking up the percentages, I came across an interesting [article](http
  r:(r3;r2;r1)                   / rolls 
  gr:{(r@*&(x+1)>3 2 1)[]}       / get roll type by number of soldiers
  c:{0<((#b)#gr x)-b:gr x&2&y}   / get result of single battle by num attack, defend 
- b:{{{&/(x;y)}. x}{{(x-+/0=a;y-+/1=a:c[x;y])}. x}\(x;y)}    \ battle!
+ b:{{{&/(x;y)}. x}{{(x-+/0=a;y-+/1=a:c[x;y])}. x}\(x;y)}    / battle!
  
  b[40;40]
  / the result I got this run (attacker in first column, losing here) => 
