@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+		  <title>Categorically Fun &middot; Where&#39;s the Any key?</title>
+
+		  
+  		<link rel="stylesheet" href="/css/style.css">
+		  <link rel="stylesheet" href="/css/fonts.css">
+		  
+		  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+		  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+		  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+
+		  
+		  <link href="" rel="alternate" type="application/rss+xml" title="Where&#39;s the Any key?" />
+     
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.css" integrity="sha384-BdGj8xC2eZkQaxoQ8nSLefg4AV4/AwB3Fj+8SUSo7pnKP6Eoy18liIKTPn9oBYNG" crossorigin="anonymous">
+      <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.js" integrity="sha384-JiKN5O8x9Hhs/UE5cT5AAJqieYlOZbGT3CHws/y97o3ty4R7/O5poG9F3JoiOYw1" crossorigin="anonymous"></script>
+      <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous"
+              onload="renderMathInElement(document.body);"></script>
+
+	</head>
+
+    <body>
+        		<nav class="nav">
+			<div class="nav-container">
+				<a href="/">
+					<h2 class="nav-title">Where&#39;s the Any key?</h2>
+				</a>
+				<ul>
+    
+    
+        <li>
+            <a href="/about">
+                <i class='fa fa-heart'></i>
+                <span>about</span>
+                
+            </a>
+        </li>
+    
+</ul>
+			</div>
+		</nav>
+<style>
+	 
+table {margin: 0 auto;}
+td,th {padding: 1em;}
+table.prodTable td:nth-child(1) {font-weight: bold;}
+table.prodTable tr:nth-child(1) td:nth-child(2) {background-color: #ebebeb;}
+table.prodTable tr:nth-child(2) td:nth-child(3) {background-color: #ebebeb;}
+table.prodTable tr:nth-child(3) td:nth-child(4) {background-color: #ebebeb;}
+table.prodTable tr:nth-child(4) td:nth-child(5) {background-color: #ebebeb;}
+table.pureTable td,th {padding: .5em;}
+table.pureTable td:nth-child(1) {font-weight: bold;}
+</style>
+
+        
+
+<main>
+	<div class="post">
+		<div class="post-info">
+    <span>Written by</span>
+        me, of course
+        <br>
+        <span>on&nbsp;</span><time datetime="2023-01-01 00:00:00 &#43;0000 UTC">January 1, 2023</time>
+</div>
+		<h1 class="post-title">Categorically Fun</h1>
+<div class="post-line"></div>
+
+		
+
+		<p>How would you answer if someone asked, &quot;In essence, what is a function?&quot; We're talking programming here. How does something like, &quot;a compound operation that can be given a name&quot; fit the bill? Maybe something about parameters or output or side effects or maybe how it's a subprogram, or even just a dictionary. It has always been a bit unsettling for me not to have some grounding definition of what a function is in it's essence.</p>
+
+<p>I have been skimming through <a href="https://arxiv.org/pdf/1803.05316.pdf">Seven Sketches in Compositionality, An Invitation to Applied Category Theory</a> and in doing so came across quite a settling definition of what a function is. From Seven Sketches:</p>
+
+<blockquote>
+<p>Let <span  class="math">\(S\)</span> and <span  class="math">\(T\)</span> be sets. A function from <span  class="math">\(S\)</span> to <span  class="math">\(T\)</span> is a subset <span  class="math">\(F \subseteq S \times T\)</span> such that for all <span  class="math">\(s \in S\)</span> there exists a unique <span  class="math">\(t \in T\)</span> with <span  class="math">\((s, t) \in F\)</span>.</p>
+</blockquote>
+
+<p>But hey, I said we were talking about programming, not category theory. Let me explain... Although this definition is pulled from category theory, I think that it really gets to the heart of what a function is, and relates to programming in a direct way. A function is a set in category theory, and <strong>a way to describe a set in programming.</strong> We'll go over a few examples to illustrate, but first here is a bit more terminology from Seven Sketches to help us along:</p>
+
+<blockquote>
+<p>The function F is often denoted <span  class="math">\(F : S \rightarrow T\)</span>. From now on, we write <span  class="math">\(F(s) = t\)</span> to mean <span  class="math">\((s, t) \in F\)</span>.</p>
+</blockquote>
+
+<p>I'll use TS flavored psudocode, with <code>(arg1: type, arg2: type ) =&gt; expression or function body</code> to represent our example functions which will refer to always as <span  class="math">\(F\)</span>. Let's start with something easy; a pure function that takes no arguments and always returns 1</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js">() =&gt; <span style="color:#ae81ff">1</span>
+</code></pre></div>
+<p>Does it fit the definition? Let's define it in terms of <span  class="math">\(F : S \rightarrow T\)</span>; here we define <span  class="math">\(S\)</span> as a set containing the empty set <span  class="math">\(S := \{\emptyset\}\)</span> because our function takes no arguments (and does not close over anything) and <span  class="math">\(T\)</span> as a set containing the number one <span  class="math">\(T := \{1\}\)</span> because our function always returns <span  class="math">\(1.\)</span> The product, <span  class="math">\(S \times T\)</span>, or <span  class="math">\(\{\emptyset\} \times  \{1\}\)</span> is the set of pairs <span  class="math">\((s, t)\)</span>, where <span  class="math">\(s \in S\)</span> and <span  class="math">\(t \in T\)</span>. So the product here would be</p>
+
+<table>
+<thead>
+<tr>
+<th></th>
+<th>1</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td><span  class="math">\(\emptyset\)</span></td>
+<td><span  class="math">\((\emptyset, 1)\)</span></td>
+</tr>
+</tbody>
+</table>
+
+<p>Giving us <span  class="math">\(S \times T = \{(\emptyset, 1)\}\)</span></p>
+
+<p>So what is our function <span  class="math">\(F\)</span> here? From the definition, we need to find a subset of <span  class="math">\(S \times T\)</span> where for all <span  class="math">\(s \in S\)</span> there is a unique <span  class="math">\(t \in T\)</span> with <span  class="math">\((s, t) \in F\)</span>. Because we only have one item in each of <span  class="math">\(S\)</span> and <span  class="math">\(T\)</span> this one is easy, <span  class="math">\(S \times T = F\)</span>. Explicitly, this means that the product of <span  class="math">\(S \times T\)</span> is the same as our function <span  class="math">\(F\)</span>. So, combining the theory with practice we can say that <code>() =&gt; 1</code><span  class="math">\(=\{(\emptyset, 1)\}\)</span></p>
+
+<p>Let's add some parameters but keep returning <span  class="math">\(1\)</span> no matter what we get</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js">(<span style="color:#a6e22e">x</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">int</span>) =&gt; <span style="color:#ae81ff">1</span>
+</code></pre></div>
+<p>Defined in terms of <span  class="math">\(F : S \rightarrow T\)</span> this function would look like  <span  class="math">\(F : \{\mathbb{Z}\} \rightarrow \{1\}\)</span> where <span  class="math">\(\mathbb{Z}\)</span> represents any integer we can pass into our function. What would the product look like here? Essentially the same as the prior function, but with one long column in which all integers map to <span  class="math">\(1\)</span>. Giving us</p>
+
+<p><span  class="math">\[F = \{(min_{\mathbb{Z}}, 1), ...,  (max_{\mathbb{Z}}, 1) \}\]</span></p>
+
+<p>Again the product of <span  class="math">\(S \times T = F\)</span>, though that is not always the case as our next function will show. Here we can say <code>(x: int) =&gt; 1</code><span  class="math">\(= \{(min_{\mathbb{Z}}, 1), ...,  (max_{\mathbb{Z}}, 1) \}\)</span>. Also, note that the function as written describes a set, but <strong>the function when invoked returns an element of the described set</strong> (even if the function does not explicitly return anything as we shall see later). So when we write <code>(x: int) =&gt; 1</code> we are describing a set, when we invoke <code>(9) =&gt; 1</code> we are retrieving an element from the set; <span  class="math">\((9,1) \in F\)</span> or more naturally, <span  class="math">\(F(9) = 1\)</span>.</p>
+
+<p>Let's consider the following function that takes a letter <span  class="math">\(x\)</span> and a number <span  class="math">\(y\)</span> and returns a tuple with <span  class="math">\(y\)</span> in the first position and <span  class="math">\(x\)</span> in the second.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#a6e22e">type</span> <span style="color:#a6e22e">letters</span> <span style="color:#f92672">=</span> {<span style="color:#e6db74">&#39;a&#39;</span>, <span style="color:#e6db74">&#39;b&#39;</span>}
+<span style="color:#a6e22e">type</span> <span style="color:#a6e22e">numbers</span> <span style="color:#f92672">=</span> {<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>}
+
+(<span style="color:#a6e22e">x</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">letters</span>, <span style="color:#a6e22e">y</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">numbers</span>) =&gt; (<span style="color:#a6e22e">y</span>,<span style="color:#a6e22e">x</span>)
+</code></pre></div>
+<p>As before, let's consider this in terms of <span  class="math">\(F : S \rightarrow T\)</span>. Here we can exhaustively list out the sets that represent <span  class="math">\(S\)</span> and <span  class="math">\(T\)</span>. In terms of our function they represent &quot;what are all the combinations I can pass into my function&quot; and &quot;what are all the possible return values.&quot;</p>
+
+<p><span  class="math">\[S := \{(a,1), (a,2), (b,1), (b,2) \}\]</span></p>
+
+<p><span  class="math">\[T := \{(1,a), (1,b), (2,a), (2,b)\}\]</span></p>
+
+<p>The product would look like the following with our possible arguments along the left and our possible return values along the top</p>
+
+<table class="prodTable">
+<thead>
+<tr>
+<th></th>
+<th>(1,a)</th>
+<th>(2,a)</th>
+<th>(1,b)</th>
+<th>(2,b)</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>(a,1)</td>
+<td>(a,1), (1,a)</td>
+<td>(a,1), (2,a)</td>
+<td>(a,1), (1,b)</td>
+<td>(a,1), (2,b)</td>
+</tr>
+
+<tr>
+<td>(a,2)</td>
+<td>(a,2), (1,a)</td>
+<td>(a,2), (2,a)</td>
+<td>(a,2), (1,b)</td>
+<td>(a,2), (2,b)</td>
+</tr>
+
+<tr>
+<td>(b,1)</td>
+<td>(b,1), (1,a)</td>
+<td>(b,1), (2,a)</td>
+<td>(b,1), (1,b)</td>
+<td>(b,1), (2,b)</td>
+</tr>
+
+<tr>
+<td>(b,2)</td>
+<td>(b,2), (1,a)</td>
+<td>(b,2), (2,a)</td>
+<td>(b,2), (1,b)</td>
+<td>(b,2), (2,b)</td>
+</tr>
+</tbody>
+</table>
+
+<p>The cells that are shaded represent <span  class="prodTable" class="math">\(F\)</span> and the cells that are not shaded represent elements of <span  class="prodTable" class="math">\(S \times T\)</span> that are not present in <span  class="prodTable" class="math">\(F\)</span>. Importantly here, each input maps to exactly one output thereby fulfilling the uniqueness constraint of our definition. This is our first example where <span  class="prodTable" class="math">\(S \times T \neq F\)</span>. Thus (omitting the types) we can say</p>
+
+<p><span  class="math">\[(x, y) => (y,x) = \{[(a,1), (1,a)], [(a,2), (2,a)], [(b,1), (1,b)], [(b,2), (2,b)]\}\]</span></p>
+
+<p>So far all of our functions have only dealt with arguments they have been passed and returned values when called but what a really like about our new definition of a function is just how unifying. Consider the following</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">a</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+<span style="color:#75715e">// some other bits of code (maybe) update a ...
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">b</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span>
+<span style="color:#75715e">// some other bits of code (maybe) update b ...
+</span><span style="color:#75715e"></span>(<span style="color:#a6e22e">x</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">int</span>) =&gt; {
+    <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">x</span> <span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">a</span>) <span style="color:#a6e22e">b</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">false</span>
+}
+</code></pre></div>
+<p>This function will take one argument, but also close over two other variables and possibly has the side effect of setting external state while returning nothing. This is a much different animal from the previous three.</p>
+
+<p>In the prior functions we defined the initial set <span  class="math">\(S\)</span> in terms of the function's arguments and <span  class="math">\(T\)</span> in terms of the return value because the domain and codomain of the function were distinct. While we can still treat them as distinct sets (they are), due to the imperative nature of the program you can think of <span  class="math">\(S\rightarrow T\)</span> as really meaning <span  class="math">\(S\rightarrow S'\)</span> where <span  class="math">\(S'\)</span> indicates a &quot;next-state&quot; relation to the initial <span  class="math">\(S\)</span>. Thus implying that this function is going to have a side effect, and that side effect is to updated the &quot;state&quot; set something like an edge in a state machine graph or a possible state in a TLA+ specification.</p>
+
+<p>Anyway, let's define this final function in our new way <span  class="math">\(F:S\rightarrow T\)</span>. So what do we need in <span  class="math">\(S\)</span>? There is only one argument to the function, but we rely on two other entities, let's add them to a tuple as we did with our arguments before, we have <span  class="math">\(a\)</span>, <span  class="math">\(b\)</span>, and <span  class="math">\(x\)</span> which we can write as representing the type of each in a set like so</p>
+
+<p><span  class="math">\[S:=( \{\mathbb{Z}\}, \{\mathbb{B}\}, \{\mathbb{Z}\})\]</span></p>
+
+<p>Notice that we do not return <span  class="math">\(x\)</span>, and it is not assigned anywhere outside the function and therefore will not be included in out <span  class="math">\(T\)</span> in which we have <span  class="math">\(a\)</span> and <span  class="math">\(b\)</span></p>
+
+<p><span  class="math">\[T:=( \{\mathbb{Z}\}, \{\mathbb{B}\})\]</span></p>
+
+<p>While we can't write out the entire <span  class="math">\(S\times T\)</span> product here (imagine the rows and columns extending out to cover all integers), we can fill out a few values and see if we can find an <span  class="math">\(F\)</span> that makes sense.</p>
+
+<table class="pureTable">
+<thead>
+<tr>
+<th></th>
+<th>(0, true)</th>
+<th>(0, false)</th>
+<th>(10, true)</th>
+<th>(10, false)</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>(0, true, 1)</td>
+<td></td>
+<td><span  class="math">\(\checkmark\)</span></td>
+<td></td>
+<td></td>
+</tr>
+
+<tr>
+<td>(0, false, 1)</td>
+<td></td>
+<td><span  class="math">\(\checkmark\)</span></td>
+<td></td>
+<td></td>
+</tr>
+
+<tr>
+<td>(10, true, 1)</td>
+<td></td>
+<td></td>
+<td><span  class="math">\(\checkmark\)</span></td>
+<td></td>
+</tr>
+
+<tr>
+<td>(10, false, 1)</td>
+<td></td>
+<td></td>
+<td></td>
+<td><span  class="math">\(\checkmark\)</span></td>
+</tr>
+</tbody>
+</table>
+
+<p>So while you would not call this a pure function in any traditional sense, when you look at its behavior in terms of finding a valid subset <span  class="pureTable" class="math">\(F \subseteq S \times T\)</span> it does in fact fit the definition. Contrast this with the following portion of a product that does not account for the closed over variables in the state space and would fail the uniqueness constraint. Here we pass in <span  class="pureTable" class="math">\(1\)</span> to our function and observe some possible differing results.</p>
+
+<table class="pureTable">
+<thead>
+<tr>
+<th></th>
+<th>(0, true)</th>
+<th>(0, false)</th>
+<th>(10, true)</th>
+<th>(10, false)</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>(1)</td>
+<td></td>
+<td><span  class="pureTable" class="math">\(\checkmark\)</span></td>
+<td><span  class="pureTable" class="math">\(\checkmark\)</span></td>
+<td><span  class="pureTable" class="math">\(\checkmark\)</span></td>
+</tr>
+
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+
+<p>For me at least, this is a pleasant definition for the essence of what a function is in programming. Even an impure function, as we have in this example, will have some reason to be so and once that reason is accounted for in the starting set it just behaves as any other function. So whether the function is pure or not, does or doesn't take parameters, was defined in a OO way or a functional way, it's doing something, and that something is describing a set.</p>
+
+
+		
+	</div>
+
+	<div class="pagination">
+		<a href="/posts/risk/" class="left arrow">&#8592;</a>
+
+		<a href="#" class="top">Top</a>
+	</div>
+</main>
+
+
+        		<footer>
+			  <span>
+			      &copy; <time datetime="2023-01-03 19:55:38.534683 -0800 PST m=&#43;0.190512706">2023</time> . Made with <a href='https://gohugo.io'>Hugo</a> using the <a href='https://github.com/EmielH/tale-hugo/'>Tale</a> theme.
+			  </span>
+		</footer>
+    
+
+    </body>
+</html>
