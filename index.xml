@@ -12,6 +12,15 @@
     
     
     <item>
+      <title>Categorically Fun</title>
+      <link>https://datamadic.github.io/posts/fun/</link>
+      <pubDate>Sun, 01 Jan 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://datamadic.github.io/posts/fun/</guid>
+      <description>How would you answer if someone asked, &amp;quot;In essence, what is a function?&amp;quot; We&#39;re talking programming here. How does something like, &amp;quot;a compound operation that can be given a name&amp;quot; fit the bill? Maybe something about parameters or output or side effects or maybe how it&#39;s a subprogram, or even just a dictionary. It has always been a bit unsettling for me not to have some grounding definition of what a function is in it&#39;s essence.</description>
+    </item>
+    
+    <item>
       <title>Ris-k</title>
       <link>https://datamadic.github.io/posts/risk/</link>
       <pubDate>Sun, 05 Dec 2021 01:49:45 -0500</pubDate>
