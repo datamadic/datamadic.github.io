@@ -68,7 +68,7 @@ The cells that are shaded represent $$F$$ and the cells that are not shaded repr
 
 $$(x, y) => (y,x) = \{[(a,1), (1,a)], [(a,2), (2,a)], [(b,1), (1,b)], [(b,2), (2,b)]\}$$
 
-So far all of our functions have only dealt with arguments they have been passed and returned values when called but what a really like about our new definition of a function is just how unifying. Consider the following
+So far all of our functions have only dealt with arguments they have been passed and returned values when called but what I really like about our new definition of a function is just how flexible it is. Consider the following
 
 ```js
 
