@@ -4,7 +4,7 @@ date: 2023-01-01
 draft: true
 author: me, of course
 katex: true
-markup: "markdown"
+markup: "mmark"
 ---
 
 How would you answer if someone asked, "In essence, what is a function?" We're talking programming here. How does something like, "a compound operation that can be given a name" fit the bill? Maybe something about parameters or output or side effects or maybe how it's a subprogram, or even just a dictionary. It has always been a bit unsettling for me not to have some grounding definition of what a function is in it's essence.

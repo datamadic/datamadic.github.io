@@ -4,7 +4,7 @@ date: 2020-07-03T18:42:59-04:00
 draft: true
 author: me, of course
 katex: true
-markup: "markdown"
+markup: "mmark"
 # menu: "main"
 ---
 

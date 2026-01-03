@@ -4,7 +4,7 @@ date: 2021-12-05T01:49:45-05:00
 draft: true
 author: me, of course
 katex: true
-markup: "markdown"
+markup: "mmark"
 ---
 
 I have been playing a lot of Risk with my family recently and got to wondering what the chances of success are per battle. The internet says the following:

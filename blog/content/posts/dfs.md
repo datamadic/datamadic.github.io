@@ -4,7 +4,7 @@ date: 2020-05-08
 draft: false
 author: me, of course
 katex: true
-markup: "markdown"
+markup: "mmark"
 ---
 Useful for finding cycles and is often used as step in the process for things like topological sorts (as demonstrated below) and finding strongly connected components. DFS is generally run to learn about a graph's structure and, unlike BFS which is ordinarily seeded with a single root vertex, DFS will iterate over all vertices. The `discovered` and `finished` times have a parenthesis structure where the intervals $$[d[u], f[u]] \:and\: [d[v], f[v]]$$ are either entirely disjoint, or one is entirely contained within the other. 
 

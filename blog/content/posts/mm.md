@@ -5,7 +5,7 @@ date: 2021-04-10T02:54:04-04:00
 draft: true
 author: me, of course
 katex: true
-markup: "markdown"
+markup: "mmark"
 ---
 
 <p style="text-align: center;">how market makers work</p>
