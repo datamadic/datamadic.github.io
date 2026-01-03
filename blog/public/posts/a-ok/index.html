@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head>
+	
+
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+		<title>A-Ok &middot; Where&#39;s the Any key?</title>
+
+		
+		<link rel="stylesheet" href="/css/style.css">
+		<link rel="stylesheet" href="/css/fonts.css">
+		
+		<link rel="icon" href="/favicon.ico"/>
+		<link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+		<link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+		<link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+
+		
+		<link href="" rel="alternate" type="application/rss+xml" title="Where&#39;s the Any key?" />
+
+		<script src="/js/darkmode.js"></script>
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.css" integrity="sha384-BdGj8xC2eZkQaxoQ8nSLefg4AV4/AwB3Fj+8SUSo7pnKP6Eoy18liIKTPn9oBYNG" crossorigin="anonymous">
+      <script defer="" src="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.js" integrity="sha384-JiKN5O8x9Hhs/UE5cT5AAJqieYlOZbGT3CHws/y97o3ty4R7/O5poG9F3JoiOYw1" crossorigin="anonymous"></script>
+      <script defer="" src="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
+	  <style>
+	 
+		table {margin: 0 auto;}
+		td,th {padding: 1em;}
+		table.prodTable td:nth-child(1) {font-weight: bold;}
+		table.prodTable tr:nth-child(1) td:nth-child(2) {background-color: #ebebeb;}
+		table.prodTable tr:nth-child(2) td:nth-child(3) {background-color: #ebebeb;}
+		table.prodTable tr:nth-child(3) td:nth-child(4) {background-color: #ebebeb;}
+		table.prodTable tr:nth-child(4) td:nth-child(5) {background-color: #ebebeb;}
+		table.pureTable td,th {padding: .5em;}
+		table.pureTable td:nth-child(1) {font-weight: bold;}
+		</style>
+	</head>
+
+    <body>
+        		<nav class="nav">
+			<div class="nav-container">
+				<a href="/">
+					
+						<h2 class="nav-title">Where&#39;s the Any key?</h2>
+					
+				</a>
+				<ul>
+    
+    
+        <li>
+            <a href="/about">
+                <i class='fa fa-heart'></i>
+                <span>about</span>
+                
+            </a>
+        </li>
+    
+</ul>
+			</div>
+		</nav>
+
+        <div id="darkModeToggle" onclick="toggleDarkMode()">
+  &#9680; 
+</div>
+
+        
+
+<main>
+	
+
+
+        <div class="post">
+		<div class="post-info">
+    <span>Written by</span>
+        me, of course
+        <br>
+        <span>on&nbsp;</span><time datetime="2025-12-19 00:00:00 &#43;0000 UTC">December 19, 2025</time>
+</div>
+
+		<h1 class="post-title">A-Ok</h1>
+<div class="post-line"></div>
+
+		
+
+		<style>
+    pre {
+        background-color:aliceblue;
+    }
+</style>
+
+<p>It's the end of the year and not to let <em>another</em> year go by without writing anything, here is a little write up of the first Advent of Code problem this year done in kdb. These types of bite sized data processing problems tend to be well suited for kdb and quite a bit of fun. You can find the full description <a href="https://adventofcode.com/2025/day/1">here</a> but the gist of the first part is that you have a safe with a dial and a list of rotations, the number you are looking for is &quot;the number of times the dial is left pointing at 0 after any rotation in the sequence.&quot; The dial starts off pointing at 50, the list of rotations looks like this:</p>
+<pre><code>R32
+R2
+R4
+R1
+L28
+L35
+...</code></pre>
+<p>After reading the input file in and defining a parsing function that turns the text rotations into positive or negative numbers:</p>
+<pre><code>q)t:read0`$":aoc-day-1.txt"
+q)prs:{((-1;1)"R"=f)*"J"$x except f:first x}</code></pre>
+<p>The solution just is simply just counting up whenever the starting number plus the rotation modulo 100 is equal to 0. We can find this by scanning <code>\</code> over the parsed list and using the atomic equality check for when the result is 0. The answer to the first part of the day 1 question is 1074.</p>
+<pre><code class="language-kdb" data-lang="kdb">q)sum 0=50{(x+y)mod 100}\prs each t
+1074</code></pre>
+<p>Broken down the expression evolves like this</p>
+<pre><code>q)prs each t
+32 2 4 1 -28 -35 ...
+
+q)50{(x+y)mod 100}\prs each t
+82 84 88 89 61 26 ... </code></pre>
+<p>It takes 50 rotations before we finally land on 0 for the first time, then we hit it again in 2 more rotations etc.</p>
+<pre><code>q)0=50{(x+y)mod 100}\prs each t
+00000000000000000000000000000000000000000000000001010010001...</code></pre>
+<p>We can see all the times we land on 0 by asking for the index where the equality occurs, but to get the answer we just need the sum.</p>
+<pre><code>q)where 0=50{(x+y)mod 100}\prs each t
+49 51 54 58 60 66 68 71 73 80 83 85 91 ...</code></pre>
+<p>The second part of the question indicates that &quot;you're actually supposed to count the number of times any click causes the dial to point at 0, regardless of whether it happens during a rotation or at the end of one.&quot; This adds a few wrinkles to just modding over the summed list. For our purposes there are 3 ways that we need to account for. The first we already did in the prior step, checking if the value after rotation is 0 i.e. <code>(x+y)mod 100</code>. The next easiest one to check is revolutions. If during the rotation you do a full revolution or more, you know you must have passed through 0. Integer <code>div</code>ision will tell us how many revolutions we have done during the turn. The final and most nuanced check is if we pass through 0 at any point taking into account that we may or may not have already did so in a revolution. So if our starting value was 99 and we perform  R2 or R102 we need to record the values 1 and 2 respectively to account for the number of times we hit 0 in the process. The same goes for if we started at 1 and performed L2 or L102. Starting at 50 and performing R150 or L150 should record 2 total as after the revolution we rotate 50 more to land on 0. We can build up a table to get a feel for how this looks.</p>
+
+<p>Let's first define a function that will run through the list of inputs and calculate each of the conditions we are interested in; the next value, how many revolutions, and if we have crossed 0 on the dial at any point during the rotation.</p>
+<pre><code>calc:{
+ nxt:(y+prv:first x)mod 100;
+ sny:signum y;ay:abs y;
+ (nxt; ay div 100;prv&nxt<>prv+sny*ay mod 100)}</code></pre>
+<p>We can see what this looks like by creating a table to inspect the results, it evolves like so</p>
+<pre><code>q)(enlist 50)calc\prs each t
+82 0 0
+84 0 0
+88 0 0
+89 0 0
+
+q)flip (enlist 50)calc\prs each t
+82 84 88 89 61 26 42 85 61 85 20 11 64 57 36 28 3  86 65 20 44 69 89 37 ..
+0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  ..
+0  0  0  0  0  0  0  0  0  0  1  0  1  0  0  0  0  1  0  0  0  0  0  1  ..
+
+q)`nxt`revolutions`flippy!flip (enlist 50)calc\prs each t
+nxt        | 82 84 88 89 61 26 42 85 61 85 20 11 64 57 36 28 3  86 65 20 ..
+revolutions| 0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  ..
+flippy     | 0  0  0  0  0  0  0  0  0  0  1  0  1  0  0  0  0  1  0  0  ..
+q)
+
+q)show turns:flip `nxt`rev`flippy!flip (enlist 50)calc\prs each t
+nxt rev flippy
+--------------
+82  0   0
+84  0   0
+88  0   0
+89  0   0
+61  0   0</code></pre>
+<p>From here it is just a matter of summing the conditions we are interested in.</p>
+<pre><code>q)exec sum rev+flippy|nxt=0 from turns
+6254</code></pre>
+<p>This works in our case because we never start on 0 and do exactly one revolution, if we did we would have to add a condition to check.</p>
+
+<p>Of course if we can sum it line by line there is no need to actually create the table, an inline version could look like the following:</p>
+<pre><code>inline:{
+ rm:(y+prv:first x)mod 100;
+ sny:signum y;ay:abs y;
+ r:ay div 100;                   / number of revolutions
+ zar:prv&rm<>prv+sny*ay mod 100; / crossed zero, accounting for revolutions
+ (rm; x[1]+r+zar|not rm)}        / prev total + revolutions + cross or land on zero</code></pre>
+<p>Running through the list and getting</p>
+<pre><code>q)last (50;0)inline/prs each t
+6254</code></pre>
+
+		
+	</div>
+
+	<div class="pagination">
+		<a href="/posts/cn2020/" class="left arrow">&#8592;</a>
+
+		<a href="#" class="top">Top</a>
+	</div>
+</main>
+
+
+        		<footer>
+			
+			<span>
+			&copy; <time datetime="2026-01-03 14:42:53.223381 -0800 PST m=&#43;0.173860001">2026</time> . Made with <a href='https://gohugo.io'>Hugo</a> using the <a href='https://github.com/EmielH/tale-hugo/'>Tale</a> theme.
+			</span>
+		</footer>
+
+    </body>
+</html>

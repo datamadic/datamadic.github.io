@@ -2,67 +2,64 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Where&#39;s the Any key?</title>
-    <link>http://localhost:1313/</link>
+    <link>https://datamadic.github.io/</link>
     <description>Recent content on Where&#39;s the Any key?</description>
-    <generator>Hugo</generator>
+    <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 01 Jan 2023 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 19 Dec 2025 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://datamadic.github.io/index.xml" rel="self" type="application/rss+xml" />
+    
+    
     <item>
-      <title>Categorically Fun</title>
-      <link>http://localhost:1313/posts/fun/</link>
-      <pubDate>Sun, 01 Jan 2023 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/posts/fun/</guid>
-      <description>&lt;p&gt;How would you answer if someone asked, &amp;ldquo;In essence, what is a function?&amp;rdquo; We&amp;rsquo;re talking programming here. How does something like, &amp;ldquo;a compound operation that can be given a name&amp;rdquo; fit the bill? Maybe something about parameters or output or side effects or maybe how it&amp;rsquo;s a subprogram, or even just a dictionary. It has always been a bit unsettling for me not to have some grounding definition of what a function is in it&amp;rsquo;s essence.&lt;/p&gt;</description>
+      <title>A-Ok</title>
+      <link>https://datamadic.github.io/posts/a-ok/</link>
+      <pubDate>Fri, 19 Dec 2025 00:00:00 +0000</pubDate>
+      
+      <guid>https://datamadic.github.io/posts/a-ok/</guid>
+      <description>Helping the Elves in Advent of Code with kdb</description>
     </item>
-    <item>
-      <title>Ris-k</title>
-      <link>http://localhost:1313/posts/risk/</link>
-      <pubDate>Sun, 05 Dec 2021 01:49:45 -0500</pubDate>
-      <guid>http://localhost:1313/posts/risk/</guid>
-      <description>&lt;p&gt;I have been playing a lot of Risk with my family recently and got to wondering what the chances of success are per battle. The internet says the following:&lt;/p&gt;&#xA;&lt;p&gt;&lt;img src=&#34;http://localhost:1313/risk-prob.png&#34; alt=&#34;alt text&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;What might it look like to generate these results on our own using simulated dice throws and battles? Because this is one of those toy problems that is quite math-y, let&amp;rsquo;s use &lt;code&gt;k&lt;/code&gt;, or &lt;a href=&#34;https://github.com/kevinlawler/kona&#34;&gt;kona&lt;/a&gt; to be precise. It will allow us to be terse almost to the point of having executable formulae that define our problem.&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>How To Run A Bar</title>
-      <link>http://localhost:1313/posts/mm/</link>
-      <pubDate>Sat, 10 Apr 2021 02:54:04 -0400</pubDate>
-      <guid>http://localhost:1313/posts/mm/</guid>
-      <description>&lt;!-- raw HTML omitted --&gt;&#xA;&lt;h2 id=&#34;incomplete--draft&#34;&gt;incomplete / draft&lt;/h2&gt;&#xA;&lt;p&gt;Imagine a man in a bar. He looks up to order a beer and notices something strange. Written next to the Miller Lite he wants to order there are two prices; $3.00 and $3.10. He asks the bartender if there some kind of special, or perhaps a mistake on the menu. &amp;ldquo;No mistake&amp;rdquo; the bartender answers, &amp;ldquo;If you want a Miller Lite it costs $3.10. But, if you want to sell me a Miller Lite, I&amp;rsquo;ll buy it off you for $3.00.&amp;rdquo;&lt;/p&gt;</description>
-    </item>
+    
     <item>
       <title>Surfing With Clojure</title>
-      <link>http://localhost:1313/posts/cn2020/</link>
+      <link>https://datamadic.github.io/posts/cn2020/</link>
       <pubDate>Sat, 26 Sep 2020 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/posts/cn2020/</guid>
-      <description>&lt;p&gt;I was honored to present at Clojure/north 2020. Due to Covid 19, it ended up being a virtual conference, but was a blast nonetheless as the organizers did a fantastic job pulling it all together.&lt;/p&gt;&#xA;&lt;p&gt;The talk was centered around an application that I have been working on in my spare time which I call DeepSwell that allows me to better visualize the surf forecast for my local area. The basic idea is to continually monitor and record the forecasts provided by NOAA as well as video snippets from the surf cams for those times. The recorded forecast images are then compared to future forecasts, with the closest matches as determined by image analysis being my best guess at what the surf will actually look like. Once I have a list of matches, I use the times associated with them to look up the corresponding videos which become my forecasts.&lt;/p&gt;</description>
+      
+      <guid>https://datamadic.github.io/posts/cn2020/</guid>
+      <description>I was honored to present at Clojure/north 2020. Due to Covid 19, it ended up being a virtual conference, but was a blast nonetheless as the organizers did a fantastic job pulling it all together.
+The talk was centered around an application that I have been working on in my spare time which I call DeepSwell that allows me to better visualize the surf forecast for my local area. The basic idea is to continually monitor and record the forecasts provided by NOAA as well as video snippets from the surf cams for those times.</description>
     </item>
+    
     <item>
       <title>About</title>
-      <link>http://localhost:1313/about/</link>
+      <link>https://datamadic.github.io/about/</link>
       <pubDate>Fri, 03 Jul 2020 23:07:50 -0400</pubDate>
-      <guid>http://localhost:1313/about/</guid>
-      <description>&lt;h1 id=&#34;here&#34;&gt;Here&lt;/h1&gt;&#xA;&lt;p&gt;An attempt to write out some of the topics I look into, mostly to help future me remember and to practice writing. As such, any coding examples are largely focused on the computations they perform and not friendly naming as you would expect in real code. Think an algo book&amp;rsquo;s psudo-code.&lt;/p&gt;&#xA;&lt;p&gt;Also fair game here would be musings about random topics and things I want to remember.&lt;/p&gt;&#xA;&lt;h1 id=&#34;me&#34;&gt;Me&lt;/h1&gt;&#xA;&lt;p&gt;Hi, I&amp;rsquo;m Xavier. I&amp;rsquo;m interested in a number of things including: programming, surfing, finance, machine learning, math, jazz, green housing, risk and weather modeling, and baking bread.&lt;/p&gt;</description>
+      
+      <guid>https://datamadic.github.io/about/</guid>
+      <description>Here An attempt to write out some of the topics I look into, mostly to help future me remember and to practice writing. As such, any coding examples are largely focused on the computations they perform and not friendly naming as you would expect in real code. Think an algo book&#39;s psudo-code.
+Also fair game here would be musings about random topics and things I want to remember.
+Me Hi, I&#39;m Xavier.</description>
     </item>
-    <item>
-      <title>Lazy</title>
-      <link>http://localhost:1313/posts/lazy/</link>
-      <pubDate>Fri, 03 Jul 2020 18:42:59 -0400</pubDate>
-      <guid>http://localhost:1313/posts/lazy/</guid>
-      <description>&lt;p&gt;Most sequence functions in Clojure, such as &lt;code&gt;map&lt;/code&gt;, &lt;code&gt;range&lt;/code&gt;, &lt;code&gt;filter&lt;/code&gt; and others, return lazy sequences. This can be used to write methods that take advantage of lazy sequences where you would normally reach for loops. The benefits typically associated with lazy sequences are&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;Only calculating what you need when you need it (if ever)&lt;/li&gt;&#xA;&lt;li&gt;Being able to represent infinite sequences that would not fit in memory&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;p&gt;After working with them a bit I&amp;rsquo;d add&lt;/p&gt;</description>
-    </item>
+    
     <item>
       <title>( DFS )</title>
-      <link>http://localhost:1313/posts/dfs/</link>
+      <link>https://datamadic.github.io/posts/dfs/</link>
       <pubDate>Fri, 08 May 2020 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/posts/dfs/</guid>
-      <description>&lt;p&gt;Useful for finding cycles and is often used as step in the process for things like topological sorts (as demonstrated below) and finding strongly connected components. DFS is generally run to learn about a graph&amp;rsquo;s structure and, unlike BFS which is ordinarily seeded with a single root vertex, DFS will iterate over all vertices. The &lt;code&gt;discovered&lt;/code&gt; and &lt;code&gt;finished&lt;/code&gt; times have a parenthesis structure where the intervals $$[d[u], f[u]] :and: [d[v], f[v]]$$ are either entirely disjoint, or one is entirely contained within the other.&lt;/p&gt;</description>
+      
+      <guid>https://datamadic.github.io/posts/dfs/</guid>
+      <description>Useful for finding cycles and is often used as step in the process for things like topological sorts (as demonstrated below) and finding strongly connected components. DFS is generally run to learn about a graph&#39;s structure and, unlike BFS which is ordinarily seeded with a single root vertex, DFS will iterate over all vertices. The discovered and finished times have a parenthesis structure where the intervals \([d[u], f[u]] \:and\: [d[v], f[v]]\) are either entirely disjoint, or one is entirely contained within the other.</description>
     </item>
+    
     <item>
       <title>( BFS )</title>
-      <link>http://localhost:1313/posts/bfs/</link>
+      <link>https://datamadic.github.io/posts/bfs/</link>
       <pubDate>Sun, 03 May 2020 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/posts/bfs/</guid>
-      <description>&lt;p&gt;Given a graph G = (V, E) and a distinguished vertex s, BFS explores the edges of&#xA;G to discover every vertex that is reachable from s.&lt;/p&gt;&#xA;&lt;p&gt;It computes the distance (smallest number of edges) from s to each reachable&#xA;vertex.&lt;/p&gt;&#xA;&lt;p&gt;It produces an breadth-first tree with root s that contains all reachable&#xA;vertices. For any vertex v reachable from s, the path in the breadth-first&#xA;tree from v to s corresponds to a shortest path from v to s in G.&lt;/p&gt;</description>
+      
+      <guid>https://datamadic.github.io/posts/bfs/</guid>
+      <description>Given a graph G = (V, E) and a distinguished vertex s, BFS explores the edges of G to discover every vertex that is reachable from s.
+It computes the distance (smallest number of edges) from s to each reachable vertex.
+It produces an breadth-first tree with root s that contains all reachable vertices. For any vertex v reachable from s, the path in the breadth-first tree from v to s corresponds to a shortest path from v to s in G.</description>
     </item>
+    
   </channel>
 </rss>
