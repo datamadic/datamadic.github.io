@@ -1,21 +1,24 @@
 <!DOCTYPE html>
 <html lang="en-us">
-    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css" integrity="sha384-vKruj+a13U8yHIkAyGgK1J3ArTLzrFGBbBc0tDp4ad/EyewESeXE/Iv67Aj8gKZ0" crossorigin="anonymous">
+    <head>
+		
+		
+		
+		<meta property="og:title" content="Lazy" />
+<meta property="og:description" content="Most sequence functions in Clojure, such as map, range, filter and others, return lazy sequences. This can be used to write methods that take advantage of lazy sequences where you would normally reach for loops. The benefits typically associated with lazy sequences are
+ Only calculating what you need when you need it (if ever) Being able to represent infinite sequences that would not fit in memory  After working with them a bit I&#39;d add" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://datamadic.github.io/posts/lazy/" />
+<meta property="article:published_time" content="2020-07-03T18:42:59-04:00" />
+<meta property="article:modified_time" content="2020-07-03T18:42:59-04:00" />
 
-
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.js" integrity="sha384-PwRUT/YqbnEjkZO0zZxNqcxACrXe+j766U2amXcgMg5457rve2Y7I6ZJSm2A0mS4" crossorigin="anonymous"></script>
-
-
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/contrib/auto-render.min.js" integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous"
-    onload="renderMathInElement(document.body);"></script>
-
+	
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 		<title>Lazy &middot; Where&#39;s the Any key?</title>
 
-		
+		 
 		<link rel="stylesheet" href="/css/style.css">
 		<link rel="stylesheet" href="/css/fonts.css">
 		
@@ -28,7 +31,6 @@
 		<link href="" rel="alternate" type="application/rss+xml" title="Where&#39;s the Any key?" />
 
 		<script src="/js/darkmode.js"></script>
-		
 	</head>
 
     <body>
@@ -78,105 +80,115 @@
 		
 
 		<p>Most sequence functions in Clojure, such as <code>map</code>, <code>range</code>, <code>filter</code> and others, return lazy sequences. This can be used to write methods that take advantage of lazy sequences where you would normally reach for loops. The benefits typically associated with lazy sequences are</p>
+
 <ul>
 <li>Only calculating what you need when you need it (if ever)</li>
 <li>Being able to represent infinite sequences that would not fit in memory</li>
 </ul>
-<p>After working with them a bit I&rsquo;d add</p>
+
+<p>After working with them a bit I'd add</p>
+
 <ul>
 <li>Seeing variables that would otherwise be trapped and mutated in a loop as a general purpose sequence can add simplicity, composability and reuse to your code</li>
 </ul>
+
 <p>What brought this to mind was a toy programming problem I came across recently. It went something like this</p>
+
 <blockquote>
 <p>You want to buy a car that cost <code>x</code> you can save <code>y</code> per month and you have a car that you can sell for <code>z</code> dollars. Both the new and old car depreciate at rate <code>r</code> per month. How many months till you can but the car and how much is left over?</p>
 </blockquote>
+
 <p>The imperative approach is straight forward and would look something like the following (using JS here)</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">deprRate</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.985</span>;
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">monthlySavings</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">1000</span>;
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">newCar</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">8000</span>;
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">oldCar</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">2000</span>;
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">savings</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">months</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">while</span> (<span style="color:#a6e22e">oldCar</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">savings</span> <span style="color:#f92672">&lt;</span> <span style="color:#a6e22e">newCar</span>) {
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">oldCar</span> <span style="color:#f92672">*=</span> <span style="color:#a6e22e">deprRate</span>;
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">newCar</span> <span style="color:#f92672">*=</span> <span style="color:#a6e22e">deprRate</span>;
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">savings</span> <span style="color:#f92672">+=</span> <span style="color:#a6e22e">monthlySavings</span>;
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">months</span><span style="color:#f92672">++</span>;
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>[<span style="color:#a6e22e">months</span>, <span style="color:#a6e22e">oldCar</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">savings</span> <span style="color:#f92672">-</span> <span style="color:#a6e22e">newCar</span>]
-</span></span><span style="display:flex;"><span><span style="color:#75715e">// [6, 520]
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> 
-</span></span></code></pre></div><p>Fairly simple and for a toy programming problem just fine. There are, however, some interesting insights when this problem is solved using lazy sequences. Looking at the code above, there are four sequences relating to the change in value of <code>newCar</code>, <code>oldCar</code>, <code>savings</code> and <code>months</code> as they get reassigned in the while loop. Lets take the simplest one, <code>months</code>, and model it as a lazy sequence in Clojure.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">deprRate</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.985</span>;
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">monthlySavings</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">1000</span>;
+<span style="color:#66d9ef">let</span> <span style="color:#a6e22e">newCar</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">8000</span>;
+<span style="color:#66d9ef">let</span> <span style="color:#a6e22e">oldCar</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">2000</span>;
+<span style="color:#66d9ef">let</span> <span style="color:#a6e22e">savings</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+<span style="color:#66d9ef">let</span> <span style="color:#a6e22e">months</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+
+<span style="color:#66d9ef">while</span> (<span style="color:#a6e22e">oldCar</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">savings</span> <span style="color:#f92672">&lt;</span> <span style="color:#a6e22e">newCar</span>) {
+    <span style="color:#a6e22e">oldCar</span> <span style="color:#f92672">*=</span> <span style="color:#a6e22e">deprRate</span>;
+    <span style="color:#a6e22e">newCar</span> <span style="color:#f92672">*=</span> <span style="color:#a6e22e">deprRate</span>;
+    <span style="color:#a6e22e">savings</span> <span style="color:#f92672">+=</span> <span style="color:#a6e22e">monthlySavings</span>;
+    <span style="color:#a6e22e">months</span><span style="color:#f92672">++</span>;
+}
+
+[<span style="color:#a6e22e">months</span>, <span style="color:#a6e22e">oldCar</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">savings</span> <span style="color:#f92672">-</span> <span style="color:#a6e22e">newCar</span>]
+<span style="color:#75715e">// [6, 520]
+</span><span style="color:#75715e"></span> 
+</code></pre></div>
+<p>Fairly simple and for a toy programming problem just fine. There are, however, some interesting insights when this problem is solved using lazy sequences. Looking at the code above, there are four sequences relating to the change in value of <code>newCar</code>, <code>oldCar</code>, <code>savings</code> and <code>months</code> as they get reassigned in the while loop. Lets take the simplest one, <code>months</code>, and model it as a lazy sequence in Clojure.</p>
+
 <p>Note: if you are trying this in a repl, be sure to <code>(set! *print-length* 10)</code> else it will try to realize the whole (infinite) sequence.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-clj" data-lang="clj"><span style="display:flex;"><span>(iterate inc <span style="color:#ae81ff">0</span>)
-</span></span><span style="display:flex;"><span><span style="color:#75715e">;; (0 1 2 3 4 5 6 7 8 9 ...)</span>
-</span></span></code></pre></div><p>As we see, <code>(iterate inc 0)</code> returns the lazy sequence <code>0</code>, <code>(inc 0)</code>, <code>(inc (inc 0))</code>, <code>...</code>. Another way to look at what <code>iterate</code> does would be to define it directly in terms of the <code>lazy-seq</code> itself like so</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-clj" data-lang="clj"><span style="display:flex;"><span>(<span style="color:#66d9ef">defn </span>iterate2 [f x]
-</span></span><span style="display:flex;"><span>  (<span style="color:#a6e22e">lazy-seq</span> (cons x (<span style="color:#a6e22e">iterate2</span> f (<span style="color:#a6e22e">f</span> x)))))
-</span></span><span style="display:flex;"><span>  
-</span></span><span style="display:flex;"><span>(<span style="color:#a6e22e">iterate2</span> inc <span style="color:#ae81ff">0</span>)
-</span></span><span style="display:flex;"><span><span style="color:#75715e">;; (0 1 2 3 4 5 6 7 8 9 ...)</span>
-</span></span></code></pre></div><p>This gives a good idea of what it&rsquo;s logically doing, but in reality <code>(lazy-seq ...)</code> will not perform actual recursion as the code may suggest. Under the covers its a macro that will re-write the recursion and just calculate the values when asked. This ends up being a good thing, you don&rsquo;t have to worry about blowing the stack. You can, however, still run out of memory if you accidentally hold onto all the values along the way.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-clj" data-lang="clj">(iterate inc <span style="color:#ae81ff">0</span>)
+<span style="color:#75715e">;; (0 1 2 3 4 5 6 7 8 9 ...)</span></code></pre></div>
+<p>As we see, <code>(iterate inc 0)</code> returns the lazy sequence <code>0</code>, <code>(inc 0)</code>, <code>(inc (inc 0))</code>, <code>...</code>. Another way to look at what <code>iterate</code> does would be to define it directly in terms of the <code>lazy-seq</code> itself like so</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-clj" data-lang="clj">(<span style="color:#66d9ef">defn </span>iterate2 [f x]
+  (<span style="color:#a6e22e">lazy-seq</span> (cons x (<span style="color:#a6e22e">iterate2</span> f (<span style="color:#a6e22e">f</span> x)))))
+  
+(<span style="color:#a6e22e">iterate2</span> inc <span style="color:#ae81ff">0</span>)
+<span style="color:#75715e">;; (0 1 2 3 4 5 6 7 8 9 ...)</span></code></pre></div>
+<p>This gives a good idea of what it's logically doing, but in reality <code>(lazy-seq ...)</code> will not perform actual recursion as the code may suggest. Under the covers its a macro that will re-write the recursion and just calculate the values when asked. This ends up being a good thing, you don't have to worry about blowing the stack. You can, however, still run out of memory if you accidentally hold onto all the values along the way.</p>
+
 <p>Back to our example, <code>months</code> and <code>savings</code> are basically the same in terms of operations, lets define an incrementing function that can handle either and returns a lazy sequence</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-clj" data-lang="clj"><span style="display:flex;"><span>(<span style="color:#66d9ef">defn </span>incr [start to-add] (iterate <span style="color:#f92672">#</span>(+ % to-add) start))
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>(<span style="color:#a6e22e">incr</span> <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">1</span>)
-</span></span><span style="display:flex;"><span><span style="color:#75715e">;; (0 1 2 3 4 5 6 7 8 9 ...)</span>
-</span></span></code></pre></div><p><code>newCar</code> and <code>oldCar</code> are basically the same as well, lets define a deprecating function</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-clj" data-lang="clj"><span style="display:flex;"><span>(<span style="color:#66d9ef">defn </span>depr [start rate] (iterate <span style="color:#f92672">#</span>(* % rate) start))
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>(map int (<span style="color:#a6e22e">depr</span> <span style="color:#ae81ff">1000</span> <span style="color:#ae81ff">0.5</span>))
-</span></span><span style="display:flex;"><span><span style="color:#75715e">;; (1000 500 250 125 62 31 15 7 3 1 ...)</span>
-</span></span></code></pre></div><p>Notice that <code>map</code> here is both taking and returning a lazy sequence.</p>
-<p>So now that we have modeled our sequences, let&rsquo;s combine them to arrive at the solution. First let&rsquo;s combine the savings and the old car</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-clj" data-lang="clj"><span style="display:flex;"><span>(map +
-</span></span><span style="display:flex;"><span>     (<span style="color:#a6e22e">incr</span> <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">1000</span>)
-</span></span><span style="display:flex;"><span>     (<span style="color:#a6e22e">depr</span> <span style="color:#ae81ff">2000</span> <span style="color:#ae81ff">0.985</span>))
-</span></span><span style="display:flex;"><span>     
-</span></span><span style="display:flex;"><span><span style="color:#75715e">;; note, I removed the decimals for readability</span>
-</span></span><span style="display:flex;"><span>(<span style="color:#ae81ff">2000</span> <span style="color:#ae81ff">2970</span> <span style="color:#ae81ff">3940</span> <span style="color:#ae81ff">4911</span> <span style="color:#ae81ff">5882</span> <span style="color:#ae81ff">6854</span> <span style="color:#ae81ff">7826</span> <span style="color:#ae81ff">8799</span> <span style="color:#ae81ff">9772</span> <span style="color:#ae81ff">10745</span> ...)
-</span></span></code></pre></div><p>Then we want to subtract the deprecating value of the new car. We can do that by adding the negated value, again using the fact that <code>map</code> can take and return lazy sequences.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-clj" data-lang="clj"><span style="display:flex;"><span>(map +
-</span></span><span style="display:flex;"><span>     (<span style="color:#a6e22e">incr</span> <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">1000</span>)
-</span></span><span style="display:flex;"><span>     (<span style="color:#a6e22e">depr</span> <span style="color:#ae81ff">2000</span> <span style="color:#ae81ff">0.985</span>)
-</span></span><span style="display:flex;"><span>     (map - (<span style="color:#a6e22e">depr</span> <span style="color:#ae81ff">8000</span> <span style="color:#ae81ff">0.985</span>)))
-</span></span><span style="display:flex;"><span>     
-</span></span><span style="display:flex;"><span><span style="color:#75715e">;; returns </span>
-</span></span><span style="display:flex;"><span>(<span style="color:#ae81ff">-6000</span>
-</span></span><span style="display:flex;"><span> <span style="color:#ae81ff">-4910</span>
-</span></span><span style="display:flex;"><span> <span style="color:#ae81ff">-3821</span>
-</span></span><span style="display:flex;"><span> <span style="color:#ae81ff">-2734</span>
-</span></span><span style="display:flex;"><span> <span style="color:#ae81ff">-1648</span>
-</span></span><span style="display:flex;"><span> <span style="color:#ae81ff">-563</span>
-</span></span><span style="display:flex;"><span> <span style="color:#ae81ff">520</span>
-</span></span><span style="display:flex;"><span> <span style="color:#ae81ff">1602</span>
-</span></span><span style="display:flex;"><span> <span style="color:#ae81ff">2683</span>
-</span></span><span style="display:flex;"><span> <span style="color:#ae81ff">3763</span>
-</span></span><span style="display:flex;"><span> ...)
-</span></span></code></pre></div><p>We see that the seventh value is positive, meaning that the savings plus the old car are enough to buy the new (with $520 left over). Lets start taking values when they are no longer negative. We can do this by dropping values that are negative.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-clj" data-lang="clj"><span style="display:flex;"><span>(<span style="color:#a6e22e">-&gt;&gt;</span> (map +
-</span></span><span style="display:flex;"><span>          (<span style="color:#a6e22e">incr</span> <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">1000</span>)
-</span></span><span style="display:flex;"><span>          (<span style="color:#a6e22e">depr</span> <span style="color:#ae81ff">2000</span> <span style="color:#ae81ff">0.985</span>)
-</span></span><span style="display:flex;"><span>          (map - (<span style="color:#a6e22e">depr</span> <span style="color:#ae81ff">8000</span> <span style="color:#ae81ff">0.985</span>)))
-</span></span><span style="display:flex;"><span>     (drop-while neg?))
-</span></span><span style="display:flex;"><span>     
-</span></span><span style="display:flex;"><span><span style="color:#75715e">;; returns</span>
-</span></span><span style="display:flex;"><span>(<span style="color:#ae81ff">520</span> <span style="color:#ae81ff">1602</span> <span style="color:#ae81ff">2683</span> <span style="color:#ae81ff">3763</span> <span style="color:#ae81ff">10217</span> ...)
-</span></span></code></pre></div><p>From here there are a few ways we can deduce the month, but to keep with the spirit of the example, let&rsquo;s stick to composing sequences. We can stick the months and money sequences side by side in a <code>vector</code>, and use <code>map</code> to do it (thus producing a new combined sequence). We will then adjust our <code>drop-while</code> predicate to look at the money value. At the end we&rsquo;ll add a <code>first</code> to just grab the first item in the newly constructed sequence which is our answer.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-clj" data-lang="clj"><span style="display:flex;"><span>(<span style="color:#a6e22e">-&gt;&gt;</span> (map vector
-</span></span><span style="display:flex;"><span>          (<span style="color:#a6e22e">incr</span> <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">1</span>)
-</span></span><span style="display:flex;"><span>          (map +
-</span></span><span style="display:flex;"><span>               (<span style="color:#a6e22e">incr</span> <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">1000</span>)
-</span></span><span style="display:flex;"><span>               (<span style="color:#a6e22e">depr</span> <span style="color:#ae81ff">2000</span> <span style="color:#ae81ff">0.985</span>)
-</span></span><span style="display:flex;"><span>               (map - (<span style="color:#a6e22e">depr</span> <span style="color:#ae81ff">8000</span> <span style="color:#ae81ff">0.985</span>))))
-</span></span><span style="display:flex;"><span>     (drop-while <span style="color:#f92672">#</span>(neg? (<span style="color:#a6e22e">%</span> <span style="color:#ae81ff">1</span>)))
-</span></span><span style="display:flex;"><span>     (<span style="color:#a6e22e">first</span>))
-</span></span><span style="display:flex;"><span>     
-</span></span><span style="display:flex;"><span><span style="color:#75715e">;; [6 520]</span>
-</span></span></code></pre></div><p>Notice that this approach has some nice characteristics. There is no reassignment or mutation, there are no loops, and we get some useful sequence generating helper functions relating to our problem domain. While this surely does not matter on a small toy problem, in a real code base it may.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-clj" data-lang="clj">(<span style="color:#66d9ef">defn </span>incr [start to-add] (iterate <span style="color:#f92672">#</span>(+ % to-add) start))
+
+(<span style="color:#a6e22e">incr</span> <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">1</span>)
+<span style="color:#75715e">;; (0 1 2 3 4 5 6 7 8 9 ...)</span></code></pre></div>
+<p><code>newCar</code> and <code>oldCar</code> are basically the same as well, lets define a deprecating function</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-clj" data-lang="clj">(<span style="color:#66d9ef">defn </span>depr [start rate] (iterate <span style="color:#f92672">#</span>(* % rate) start))
+
+(map int (<span style="color:#a6e22e">depr</span> <span style="color:#ae81ff">1000</span> <span style="color:#ae81ff">0.5</span>))
+<span style="color:#75715e">;; (1000 500 250 125 62 31 15 7 3 1 ...)</span></code></pre></div>
+<p>Notice that <code>map</code> here is both taking and returning a lazy sequence.</p>
+
+<p>So now that we have modeled our sequences, let's combine them to arrive at the solution. First let's combine the savings and the old car</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-clj" data-lang="clj">(map +
+     (<span style="color:#a6e22e">incr</span> <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">1000</span>)
+     (<span style="color:#a6e22e">depr</span> <span style="color:#ae81ff">2000</span> <span style="color:#ae81ff">0.985</span>))
+     
+<span style="color:#75715e">;; note, I removed the decimals for readability</span>
+(<span style="color:#ae81ff">2000</span> <span style="color:#ae81ff">2970</span> <span style="color:#ae81ff">3940</span> <span style="color:#ae81ff">4911</span> <span style="color:#ae81ff">5882</span> <span style="color:#ae81ff">6854</span> <span style="color:#ae81ff">7826</span> <span style="color:#ae81ff">8799</span> <span style="color:#ae81ff">9772</span> <span style="color:#ae81ff">10745</span> ...)</code></pre></div>
+<p>Then we want to subtract the deprecating value of the new car. We can do that by adding the negated value, again using the fact that <code>map</code> can take and return lazy sequences.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-clj" data-lang="clj">(map +
+     (<span style="color:#a6e22e">incr</span> <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">1000</span>)
+     (<span style="color:#a6e22e">depr</span> <span style="color:#ae81ff">2000</span> <span style="color:#ae81ff">0.985</span>)
+     (map - (<span style="color:#a6e22e">depr</span> <span style="color:#ae81ff">8000</span> <span style="color:#ae81ff">0.985</span>)))
+     
+<span style="color:#75715e">;; returns </span>
+(<span style="color:#ae81ff">-6000</span>
+ <span style="color:#ae81ff">-4910</span>
+ <span style="color:#ae81ff">-3821</span>
+ <span style="color:#ae81ff">-2734</span>
+ <span style="color:#ae81ff">-1648</span>
+ <span style="color:#ae81ff">-563</span>
+ <span style="color:#ae81ff">520</span>
+ <span style="color:#ae81ff">1602</span>
+ <span style="color:#ae81ff">2683</span>
+ <span style="color:#ae81ff">3763</span>
+ ...)</code></pre></div>
+<p>We see that the seventh value is positive, meaning that the savings plus the old car are enough to buy the new (with $520 left over). Lets start taking values when they are no longer negative. We can do this by dropping values that are negative.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-clj" data-lang="clj">(<span style="color:#a6e22e">-&gt;&gt;</span> (map +
+          (<span style="color:#a6e22e">incr</span> <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">1000</span>)
+          (<span style="color:#a6e22e">depr</span> <span style="color:#ae81ff">2000</span> <span style="color:#ae81ff">0.985</span>)
+          (map - (<span style="color:#a6e22e">depr</span> <span style="color:#ae81ff">8000</span> <span style="color:#ae81ff">0.985</span>)))
+     (drop-while neg?))
+     
+<span style="color:#75715e">;; returns</span>
+(<span style="color:#ae81ff">520</span> <span style="color:#ae81ff">1602</span> <span style="color:#ae81ff">2683</span> <span style="color:#ae81ff">3763</span> <span style="color:#ae81ff">10217</span> ...)</code></pre></div>
+<p>From here there are a few ways we can deduce the month, but to keep with the spirit of the example, let's stick to composing sequences. We can stick the months and money sequences side by side in a <code>vector</code>, and use <code>map</code> to do it (thus producing a new combined sequence). We will then adjust our <code>drop-while</code> predicate to look at the money value. At the end we'll add a <code>first</code> to just grab the first item in the newly constructed sequence which is our answer.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-clj" data-lang="clj">(<span style="color:#a6e22e">-&gt;&gt;</span> (map vector
+          (<span style="color:#a6e22e">incr</span> <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">1</span>)
+          (map +
+               (<span style="color:#a6e22e">incr</span> <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">1000</span>)
+               (<span style="color:#a6e22e">depr</span> <span style="color:#ae81ff">2000</span> <span style="color:#ae81ff">0.985</span>)
+               (map - (<span style="color:#a6e22e">depr</span> <span style="color:#ae81ff">8000</span> <span style="color:#ae81ff">0.985</span>))))
+     (drop-while <span style="color:#f92672">#</span>(neg? (<span style="color:#a6e22e">%</span> <span style="color:#ae81ff">1</span>)))
+     (<span style="color:#a6e22e">first</span>))
+     
+<span style="color:#75715e">;; [6 520]</span></code></pre></div>
+<p>Notice that this approach has some nice characteristics. There is no reassignment or mutation, there are no loops, and we get some useful sequence generating helper functions relating to our problem domain. While this surely does not matter on a small toy problem, in a real code base it may.</p>
+
 <p>Also, at least for me, seeing a loop turn into something that looks closer to processing streams is just neat.</p>
 
 
@@ -195,7 +207,7 @@
         		<footer>
 			
 			<span>
-			&copy; <time datetime="2024-12-06 19:22:14.953563 -0800 PST m=&#43;0.091483001">2024</time> . Made with <a href='https://gohugo.io'>Hugo</a> using the <a href='https://github.com/EmielH/tale-hugo/'>Tale</a> theme.
+			&copy; <time datetime="2026-01-03 15:33:07.13477 -0800 PST m=&#43;0.445052126">2026</time> . Made with <a href='https://gohugo.io'>Hugo</a> using the <a href='https://github.com/EmielH/tale-hugo/'>Tale</a> theme.
 			</span>
 		</footer>
 

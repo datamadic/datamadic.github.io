@@ -1,7 +1,7 @@
 ---
 title: "Ris-k"
 date: 2021-12-05T01:49:45-05:00
-draft: true
+draft: false
 author: me, of course
 katex: true
 markup: "mmark"

@@ -2,7 +2,7 @@
 ---
 title: "How To Run A Bar"
 date: 2021-04-10T02:54:04-04:00
-draft: true
+draft: false
 author: me, of course
 katex: true
 markup: "mmark"

@@ -1,7 +1,7 @@
 ---
 title: "Categorically Fun"
 date: 2023-01-01
-draft: true
+draft: false
 author: me, of course
 katex: true
 markup: "mmark"

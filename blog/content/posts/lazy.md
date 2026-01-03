@@ -1,7 +1,7 @@
 ---
 title: "Lazy"
 date: 2020-07-03T18:42:59-04:00
-draft: true
+draft: false
 author: me, of course
 katex: true
 markup: "mmark"
