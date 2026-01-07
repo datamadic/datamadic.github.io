@@ -4,8 +4,8 @@
 		
 		
 		
-		<meta property="og:title" content="A-Ok" />
-<meta property="og:description" content="Helping the Elves in Advent of Code with kdb" />
+		<meta property="og:title" content="AoK" />
+<meta property="og:description" content="Helping the Advent of Code Elves with kdb" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://datamadic.github.io/posts/a-ok/" />
 <meta property="article:published_time" content="2025-12-19T00:00:00+00:00" />
@@ -15,7 +15,7 @@
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-		<title>A-Ok &middot; Where&#39;s the Any key?</title>
+		<title>AoK &middot; Where&#39;s the Any key?</title>
 
 		 
 		<link rel="stylesheet" href="/css/style.css">
@@ -73,7 +73,7 @@
         <span>on&nbsp;</span><time datetime="2025-12-19 00:00:00 &#43;0000 UTC">December 19, 2025</time>
 </div>
 
-		<h1 class="post-title">A-Ok</h1>
+		<h1 class="post-title">AoK</h1>
 <div class="post-line"></div>
 
 		
@@ -84,7 +84,7 @@
     }
 </style>
 
-<p>It's the end of the year and not to let <em>another</em> year go by without writing anything, here is a little write up of the first Advent of Code problem this year done in kdb. These types of bite sized data processing problems tend to be well suited for kdb and quite a bit of fun. You can find the full description <a href="https://adventofcode.com/2025/day/1">here</a> but the gist of the first part is that you have a safe with a dial and a list of rotations, the number you are looking for is &quot;the number of times the dial is left pointing at 0 after any rotation in the sequence.&quot; The dial starts off pointing at 50, the list of rotations looks like this:</p>
+<p>It's the end of the year and not to let <em>another</em> year go by without writing anything, here is a little write up of the first Advent of Code problem this year done in kdb. These types of bite sized data processing problems tend to be well suited for kdb and quite a bit of fun. You can find the full AoC description <a href="https://adventofcode.com/2025/day/1">here</a> but the gist of the first part is that you have a safe with a dial and a list of rotations, the number you are looking for is &quot;the number of times the dial is left pointing at 0 after any rotation in the sequence.&quot; The dial starts off pointing at 50, the list of rotations looks like this:</p>
 <pre><code>R32
 R2
 R4
@@ -117,7 +117,7 @@ q)50{(x+y)mod 100}\prs each t
  nxt:(y+prv:first x)mod 100;
  sny:signum y;ay:abs y;
  (nxt; ay div 100;prv&nxt<>prv+sny*ay mod 100)}</code></pre>
-<p>We can see what this looks like by creating a table to inspect the results, it evolves like so</p>
+<p>We can see what this looks like by creating a table to inspect the results, it evolves like so.</p>
 <pre><code>q)(enlist 50)calc\prs each t
 82 0 0
 84 0 0
@@ -143,12 +143,12 @@ nxt rev flippy
 88  0   0
 89  0   0
 61  0   0</code></pre>
-<p>From here it is just a matter of summing the conditions we are interested in.</p>
+<p>From here it is just a matter of summing the 3 conditions we are interested in.</p>
 <pre><code>q)exec sum rev+flippy|nxt=0 from turns
 6254</code></pre>
 <p>This works in our case because we never start on 0 and do exactly one revolution, if we did we would have to add a condition to check.</p>
 
-<p>Of course if we can sum it line by line there is no need to actually create the table, an inline version could look like the following:</p>
+<p>Of course if we can sum it line by line there is no need to actually create the table, an inline version could look like the following.</p>
 <pre><code>inline:{
  rm:(y+prv:first x)mod 100;
  sny:signum y;ay:abs y;
@@ -158,6 +158,8 @@ nxt rev flippy
 <p>Running through the list and getting</p>
 <pre><code>q)last (50;0)inline/prs each t
 6254</code></pre>
+<p>That's all the help I can offer the Elves for now, Happy Holidays!</p>
+
 
 		
 	</div>
@@ -173,7 +175,7 @@ nxt rev flippy
         		<footer>
 			
 			<span>
-			&copy; <time datetime="2026-01-03 15:33:07.030583 -0800 PST m=&#43;0.340865209">2026</time> . Made with <a href='https://gohugo.io'>Hugo</a> using the <a href='https://github.com/EmielH/tale-hugo/'>Tale</a> theme.
+			&copy; <time datetime="2026-01-06 17:21:46.336956 -0800 PST m=&#43;0.323261251">2026</time> . Made with <a href='https://gohugo.io'>Hugo</a> using the <a href='https://github.com/EmielH/tale-hugo/'>Tale</a> theme.
 			</span>
 		</footer>
 

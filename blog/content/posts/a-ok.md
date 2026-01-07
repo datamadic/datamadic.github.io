@@ -1,11 +1,11 @@
 ---
-title: "A-Ok"
+title: "AoK"
 date: 2025-12-19
 draft: false
 author: me, of course
 katex: true
 markup: "mmark"
-summary: "Helping the Elves in Advent of Code with kdb"
+summary: "Helping the Advent of Code Elves with kdb"
 ---
 <style>
 	pre {
@@ -13,7 +13,7 @@ summary: "Helping the Elves in Advent of Code with kdb"
 	}
 </style>
 
-It's the end of the year and not to let *another* year go by without writing anything, here is a little write up of the first Advent of Code problem this year done in kdb. These types of bite sized data processing problems tend to be well suited for kdb and quite a bit of fun. You can find the full description [here](https://adventofcode.com/2025/day/1) but the gist of the first part is that you have a safe with a dial and a list of rotations, the number you are looking for is "the number of times the dial is left pointing at 0 after any rotation in the sequence." The dial starts off pointing at 50, the list of rotations looks like this:
+It's the end of the year and not to let *another* year go by without writing anything, here is a little write up of the first Advent of Code problem this year done in kdb. These types of bite sized data processing problems tend to be well suited for kdb and quite a bit of fun. You can find the full AoC description [here](https://adventofcode.com/2025/day/1) but the gist of the first part is that you have a safe with a dial and a list of rotations, the number you are looking for is "the number of times the dial is left pointing at 0 after any rotation in the sequence." The dial starts off pointing at 50, the list of rotations looks like this:
 ```
 R32
 R2
@@ -63,7 +63,7 @@ calc:{
  sny:signum y;ay:abs y;
  (nxt; ay div 100;prv&nxt<>prv+sny*ay mod 100)}
 ```
-We can see what this looks like by creating a table to inspect the results, it evolves like so
+We can see what this looks like by creating a table to inspect the results, it evolves like so.
 ```
 q)(enlist 50)calc\prs each t
 82 0 0
@@ -91,7 +91,7 @@ nxt rev flippy
 89  0   0
 61  0   0
 ```
-From here it is just a matter of summing the conditions we are interested in.   
+From here it is just a matter of summing the 3 conditions we are interested in.
 ```
 q)exec sum rev+flippy|nxt=0 from turns
 6254
@@ -100,7 +100,7 @@ q)exec sum rev+flippy|nxt=0 from turns
 This works in our case because we never start on 0 and do exactly one revolution, if we did we would have to add a condition to check.
 
 
-Of course if we can sum it line by line there is no need to actually create the table, an inline version could look like the following:
+Of course if we can sum it line by line there is no need to actually create the table, an inline version could look like the following.
 ```
 inline:{
  rm:(y+prv:first x)mod 100;
@@ -114,3 +114,5 @@ Running through the list and getting
 q)last (50;0)inline/prs each t
 6254
 ```
+
+That's all the help I can offer the Elves for now, Happy Holidays!
