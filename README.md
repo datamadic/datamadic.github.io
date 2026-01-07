@@ -3,11 +3,12 @@
 ```sh
 pushd blog
 
-# hugo new posts/bfs.md
-# hugo server -D
+# ../hugo/hugo  new posts/bfs.md
+# ../hugo/hugo  server -D
 
-hugo -D
+../hugo/hugo -D
 cp -r public/* ../
+cd ..
 git commit -am "update"
 git push origin clear:master
 
