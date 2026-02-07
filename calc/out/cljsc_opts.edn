@@ -1,0 +1,1 @@
+{:browser-repl true, :output-dir "./out", :main demo.static-website, :output-to "./out/main.js", :aot-cache true}
