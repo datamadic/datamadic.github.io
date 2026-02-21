@@ -194,3 +194,20 @@ body {
     display: flex;
 }
 
+
+@media (max-width: 768px) {
+    body {
+        height: 100vh;
+        overflow: hidden; /* Prevent scrolling */
+    }
+
+    .container {
+        width: 100%;     /* Full width */
+        height: 100%;    /* Full height */
+    }
+
+    .key {
+        font-size: 24px; /* Adjust button size for mobile */
+        padding: 20px;   /* Ensure larger touch targets */
+    }
+}
